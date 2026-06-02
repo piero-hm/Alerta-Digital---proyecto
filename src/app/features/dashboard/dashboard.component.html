@@ -1,0 +1,103 @@
+<app-navbar></app-navbar>
+
+<div class="dashboard-container">
+  <!-- Section 1 - Hero Banner -->
+  <section class="hero-banner">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-7 mb-4 mb-lg-0">
+          <p class="terminal-text mb-2">
+            <span class="online-indicator">●</span>  SISTEMA ACTIVO
+          </p>
+          <h1>Bienvenido, {{ userName }}</h1>
+          <p class="subtitle">Plataforma de protección digital para adultos mayores — Región Junín</p>
+          <span class="badge badge-success-outline me-2">✔ Sistema Seguro</span>
+          <span class="badge badge-info-outline">️ Sesión Activa</span>
+        </div>
+        <div class="col-lg-5">
+          <div class="terminal-panel">
+            > ESTADO DEL SISTEMA<br>
+            Módulos activos......... <strong>{{ systemStatus.modulesActive }}</strong><br>
+            Alertas recientes........ <strong>{{ systemStatus.recentAlerts }}</strong><br>
+            Usuarios protegidos.... <strong>{{ systemStatus.protectedUsers }}</strong><br>
+            Región.............. <strong>{{ systemStatus.region }}</strong><br>
+            Versión.............. <strong>{{ systemStatus.version }}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container py-5">
+    <!-- Section 2 - Quick Stats -->
+    <section class="mb-5">
+      <div class="row">
+        <div class="col-md-6 col-lg-3 mb-4" *ngFor="let stat of quickStats">
+          <div class="card quick-stat-card" [style.--border-color]="stat.borderColor">
+            <div class="icon">{{ stat.icon }}</div>
+            <div class="number" [ngClass]="{'text-warning': stat.borderColor === '#ff6b35', 'text-success': stat.borderColor === '#00ff88'}">{{ stat.number }}</div>
+            <div class="description">{{ stat.description }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3 - Main Modules -->
+    <section class="mb-5">
+      <h2 class="section-title mb-4">MÓDULOS DE PROTECCIÓN</h2>
+      <div class="row">
+        <div class="col-md-6 col-lg-4 mb-4" *ngFor="let module of modules">
+          <div class="card module-card">
+            <div class="card-header">
+              <span class="badge">DISPONIBLE</span>
+              <div class="icon-circle" [ngClass]="module.iconBgColor">{{ module.icon }}</div>
+              <h3 class="card-title">{{ module.title }}</h3>
+            </div>
+            <div class="card-body">
+              <p class="card-text">{{ module.description }}</p>
+              <ul class="list-unstyled mb-4">
+                <li *ngFor="let point of module.points"><span class="accent-icon">›</span> {{ point }}</li>
+              </ul>
+              <a [routerLink]="module.routerLink" class="btn-block" [ngClass]="module.buttonClass">{{ module.buttonText }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4 - Recent Alerts -->
+    <section class="mb-5">
+      <h2 class="section-title mb-4"> ALERTAS RECIENTES — REGIÓN JUNÍN</h2>
+      <div class="alerts-feed">
+        <div class="alert-item" *ngFor="let alert of recentAlerts" [ngClass]="'level-' + alert.nivel">
+          <div class="alert-content">
+            <div class="alert-header">
+              <span class="alert-type-badge" [ngClass]="'bg-' + alert.nivel">{{ alert.tipo }}</span>
+              <span class="alert-date">{{ alert.fecha }}</span>
+            </div>
+            <p class="alert-description">{{ alert.descripcion }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5 - Quick Tips -->
+    <section class="mb-5">
+      <h2 class="section-title mb-4"> REGLAS DE ORO</h2>
+      <div class="row">
+        <div class="col-lg-4 mb-4" *ngFor="let tip of quickTips">
+          <div class="card quick-tip-card">
+            <div class="icon">{{ tip.icon }}</div>
+            <div class="tip-content">
+              <h5>{{ tip.title }}</h5>
+              <p>{{ tip.text }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<app-footer></app-footer>
+

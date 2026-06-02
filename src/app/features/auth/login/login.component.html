@@ -1,0 +1,120 @@
+<div class="container-fluid login-page">
+  <div class="row min-vh-100 justify-content-center align-items-center">
+
+    <div class="col-11 col-sm-9 col-md-7 col-lg-5 col-xl-4">
+
+      <div class="card border-0 shadow-lg login-card">
+
+        <div class="card-body p-5">
+
+          <!-- Encabezado -->
+          <div class="text-center mb-4">
+
+            <div class="logo-circle mb-3">
+              🛡️
+            </div>
+
+            <h1 class="fw-bold text-primary mb-2">
+              CiberSeguro Huancayo
+            </h1>
+
+            <p class="text-secondary">
+              Plataforma de prevención y protección contra estafas digitales
+            </p>
+
+          </div>
+
+          <!-- Formulario -->
+          <form (ngSubmit)="onLogin()">
+
+            <!-- Correo -->
+            <div class="mb-4">
+              <label class="form-label fw-semibold">
+                Correo electrónico
+              </label>
+
+              <div class="input-group">
+
+                <input
+                  type="email"
+                  class="form-control"
+                  [(ngModel)]="email"
+                  name="email"
+                  placeholder="Ingrese su correo"
+                  required>
+              </div>
+            </div>
+
+            <!-- Contraseña -->
+            <div class="mb-4">
+
+              <label class="form-label fw-semibold">
+                Contraseña
+              </label>
+
+              <div class="input-group">
+
+
+                <input
+                  type="password"
+                  class="form-control"
+                  [(ngModel)]="password"
+                  name="password"
+                  placeholder="Ingrese su contraseña"
+                  required>
+
+              </div>
+
+            </div>
+
+            <!-- Error -->
+            <div
+              *ngIf="errorMessage"
+              class="alert alert-danger">
+
+              ⚠ {{ errorMessage }}
+
+            </div>
+
+            <!-- Botón -->
+            <div class="d-grid mb-4">
+
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg">
+
+                Ingresar
+
+              </button>
+
+            </div>
+
+          </form>
+
+          <hr>
+
+          <!-- Registro -->
+          <div class="text-center">
+
+            <p class="mb-0 text-secondary">
+              ¿No tienes cuenta?
+            </p>
+
+            <a
+              routerLink="/register"
+              class="fw-bold text-decoration-none">
+
+              Crear una cuenta
+
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

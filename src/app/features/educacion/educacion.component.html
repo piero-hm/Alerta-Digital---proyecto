@@ -1,0 +1,252 @@
+<app-navbar></app-navbar>
+
+<div class="educacion-container">
+  <section class="hero-module">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="terminal-text mb-2">
+          <span class="online-indicator">●</span> EDUCACIÓN DIGITAL
+        </p>
+
+        <h1>🛡️ Educación Digital</h1>
+
+        <p class="subtitle">
+          Aprende a reconocer estafas, identificar señales de alerta y protegerte con pasos simples, claros y fáciles de seguir.
+        </p>
+
+        <div class="hero-badges">
+          <span class="badge-soft badge-info-outline me-2">{{ temas.length }} temas disponibles</span>
+          <span class="badge-soft badge-success-outline">✔ Contenido verificado</span>
+        </div>
+
+        <div class="hero-actions">
+          <button class="btn btn-cyan-solid" (click)="scrollToTopics()">Ver temas</button>
+          <button class="btn btn-outline-cyan" routerLink="/quiz">Ir al Quiz Interactivo</button>
+        </div>
+      </div>
+
+      <div class="terminal-panel">
+        <div class="terminal-panel-title">> MÓDULO EDUCATIVO</div>
+        <div class="terminal-row">
+          <span>Temas disponibles</span>
+          <strong>{{ heroTerminalStatus.temasDisponibles }}</strong>
+        </div>
+        <div class="terminal-row">
+          <span>Nivel de dificultad</span>
+          <strong>{{ heroTerminalStatus.dificultad }}</strong>
+        </div>
+        <div class="terminal-row">
+          <span>Público objetivo</span>
+          <strong>{{ heroTerminalStatus.publicoObjetivo }}</strong>
+        </div>
+        <div class="terminal-row">
+          <span>Tiempo estimado</span>
+          <strong>{{ heroTerminalStatus.tiempoEstimado }}</strong>
+        </div>
+        <div class="terminal-row">
+          <span>Estado</span>
+          <strong>{{ heroTerminalStatus.estado }}</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container py-5 main-content">
+    <section class="progress-section mb-5">
+      <div class="progress-header">
+        <div>
+          <h2>Progreso de lectura</h2>
+          <p>Temas revisados: {{ temasVistos.size }} de {{ temas.length }}</p>
+        </div>
+        <div class="progress-score">{{ progresoPorcentaje | number:'1.0-0' }}%</div>
+      </div>
+
+      <div
+        class="progress custom-progress"
+        role="progressbar"
+        aria-label="Progreso de lectura"
+        [attr.aria-valuenow]="progresoPorcentaje"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        <div class="progress-bar custom-progress-bar" [style.width.%]="progresoPorcentaje"></div>
+      </div>
+    </section>
+
+    <section class="overview-section mb-5">
+      <div class="overview-card">
+        <span class="overview-icon">👓</span>
+        <h3>Lee con calma</h3>
+        <p>El contenido está pensado para aprender sin prisa, con frases claras y ejemplos reales.</p>
+      </div>
+
+      <div class="overview-card">
+        <span class="overview-icon">🧩</span>
+        <h3>Aprende por partes</h3>
+        <p>Cada tema incluye qué es, un ejemplo práctico, señales de alerta y cómo actuar.</p>
+      </div>
+
+      <div class="overview-card">
+        <span class="overview-icon">📱</span>
+        <h3>Usa tu celular con seguridad</h3>
+        <p>Vas a reconocer fraudes comunes en WhatsApp, llamadas, páginas falsas y redes sociales.</p>
+      </div>
+    </section>
+
+    <section id="topics-section" class="mb-5">
+      <div class="section-head">
+        <h2 class="section-title"> TIPOS DE AMENAZAS DIGITALES</h2>
+        <p>Haz clic en cada tarjeta para abrirla y revisar la explicación completa.</p>
+      </div>
+
+      <div
+        *ngFor="let tema of temas; let i = index; trackBy: trackByTemaId"
+        class="topic-card"
+        [ngClass]="{ expanded: temasAbiertos[i] }"
+        [style.--topic-color]="getTemaColor(tema.id)"
+      >
+        <div
+          class="topic-card-header"
+          (click)="toggleTema(i)"
+          role="button"
+          tabindex="0"
+          (keyup.enter)="toggleTema(i)"
+          (keyup.space)="toggleTema(i)"
+        >
+          <div
+            class="icon-circle"
+            [style.background-color]="getTemaColor(tema.id)"
+            [style.color]="getTemaIconColor(tema.id)"
+          >
+            {{ tema.icono }}
+          </div>
+
+          <div class="topic-info">
+            <h3 class="topic-title">{{ tema.titulo }}</h3>
+            <div class="topic-meta">
+              <span class="risk-badge" [ngClass]="getRiskLevel(tema.id)">
+                RIESGO {{ getRiskLevel(tema.id) | uppercase }}
+              </span>
+
+              <span
+                class="status-badge"
+                [ngClass]="{
+                  revisado: temasVistos.has(tema.id),
+                  'leer-ahora': !temasVistos.has(tema.id)
+                }"
+              >
+                {{ temasVistos.has(tema.id) ? 'REVISADO ✔' : 'LEER AHORA' }}
+              </span>
+            </div>
+          </div>
+
+          <span class="arrow-icon" [class.rotated]="temasAbiertos[i]">▼</span>
+        </div>
+
+        <div class="topic-card-body" [class.show]="temasAbiertos[i]">
+          <div class="info-grid">
+            <div class="description-block">
+              <h4>¿Qué es?</h4>
+              <p>{{ tema.descripcion }}</p>
+            </div>
+
+            <div class="example-block">
+              <h4>Ejemplo real</h4>
+              <p>{{ tema.ejemplo }}</p>
+            </div>
+          </div>
+
+          <div class="alert-signals-block">
+            <h4 class="text-warning">⚠️ Señales de alerta</h4>
+            <div *ngFor="let senal of tema.senalesAlerta" class="alert-signal-item">
+              <span class="icon">⚠</span>
+              <p>{{ senal }}</p>
+            </div>
+          </div>
+
+          <div class="protection-tip-block">
+            <h4 class="text-success">✅ Cómo protegerte</h4>
+            <p>{{ tema.consejo }}</p>
+
+            <div class="steps-list">
+              <div *ngFor="let paso of tema.pasos; let stepIndex = index" class="step-item">
+                <span class="step-number">{{ stepIndex + 1 }}</span>
+                <p>{{ paso }}</p>
+              </div>
+            </div>
+
+            <div class="card-actions">
+              <button class="btn btn-understood mt-3" (click)="marcarComoEntendido(i)">Entendido ✔</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="golden-rule-section">
+      <div class="golden-rule-card">
+        <h2>LA REGLA MÁS IMPORTANTE</h2>
+        <p>
+          Ningún banco, aplicación ni funcionario del gobierno te pedirá tu contraseña o código SMS por teléfono,
+          mensaje o correo. Nunca. Si alguien te lo pide, es una estafa.
+        </p>
+
+        <div class="golden-rule-icons">
+          <div class="icon-item">
+            <span class="icon">🏦</span>
+            <span>Tu banco — Nunca pide tu clave</span>
+          </div>
+
+          <div class="icon-item">
+            <span class="icon">📲</span>
+            <span>Yape / Plin — Nunca te llama por soporte</span>
+          </div>
+
+          <div class="icon-item">
+            <span class="icon">🏛️</span>
+            <span>El gobierno — Nunca pide datos por WhatsApp</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="support-section">
+      <div class="support-card">
+        <h2>Si ya compartiste información, actúa de inmediato</h2>
+
+        <div class="support-grid">
+          <article class="support-item">
+            <span class="support-number">1</span>
+            <h3>Corta el contacto</h3>
+            <p>No sigas respondiendo al mensaje o llamada sospechosa.</p>
+          </article>
+
+          <article class="support-item">
+            <span class="support-number">2</span>
+            <h3>Avisa a un familiar</h3>
+            <p>Comenta lo ocurrido con alguien de confianza para recibir ayuda.</p>
+          </article>
+
+          <article class="support-item">
+            <span class="support-number">3</span>
+            <h3>Bloquea o cambia claves</h3>
+            <p>Si diste alguna contraseña, cámbiala cuanto antes desde el canal oficial.</p>
+          </article>
+
+          <article class="support-item">
+            <span class="support-number">4</span>
+            <h3>Contacta al servicio oficial</h3>
+            <p>Usa solo números o páginas oficiales para reportar lo sucedido.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="nav-buttons-section">
+      <button class="btn btn-outline-cyan" routerLink="/dashboard">← Volver al Inicio</button>
+      <button class="btn btn-cyan-solid" routerLink="/quiz">Ir al Quiz Interactivo →</button>
+    </section>
+  </div>
+</div>
+
+<app-footer></app-footer>
