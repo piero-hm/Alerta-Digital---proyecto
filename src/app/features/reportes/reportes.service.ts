@@ -24,6 +24,7 @@ export interface ResumenReportes {
   providedIn: 'root'
 })
 export class ReportesService {
+
   private reportes: Reporte[] = [
     {
       id: 1,
@@ -63,14 +64,14 @@ export class ReportesService {
     );
   }
 
-  agregarReporte(reporte: Omit<Reporte, 'id' | 'estado'>): void {
-    const newId = this.reportes.length > 0
+  agregarReporte(datos: Omit<Reporte, 'id' | 'estado'>): void {
+    const nuevoId = this.reportes.length > 0
       ? Math.max(...this.reportes.map(r => r.id)) + 1
       : 1;
 
     const nuevoReporte: Reporte = {
-      ...reporte,
-      id: newId,
+      ...datos,
+      id: nuevoId,
       estado: 'Recibido'
     };
 
@@ -82,15 +83,19 @@ export class ReportesService {
     const recibidos = this.reportes.filter(r => r.estado === 'Recibido').length;
     const enRevision = this.reportes.filter(r => r.estado === 'En revisión').length;
     const atendidos = this.reportes.filter(r => r.estado === 'Atendido').length;
-    const conPerdidaEconomica = this.reportes.filter(r => r.perdidaEconomica).length;
-    const montoTotal = this.reportes.reduce((acc, r) => acc + (r.monto ?? 0), 0);
+    const conPerdida = this.reportes.filter(r => r.perdidaEconomica).length;
+
+    const montoTotal = this.reportes.reduce(
+      (acumulado, r) => acumulado + (r.monto ?? 0),
+      0
+    );
 
     return {
       total,
       recibidos,
       enRevision,
       atendidos,
-      conPerdidaEconomica,
+      conPerdidaEconomica: conPerdida,
       montoTotal
     };
   }
