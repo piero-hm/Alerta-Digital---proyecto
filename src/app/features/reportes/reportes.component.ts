@@ -14,6 +14,7 @@ type TabActivo = 'nuevo' | 'historial';
   styleUrls: ['./reportes.component.css']
 })
 export class ReportesComponent implements OnInit {
+
   activeTab: TabActivo = 'nuevo';
 
   tipoEstafa = '';
@@ -25,9 +26,11 @@ export class ReportesComponent implements OnInit {
 
   formSubmitted = false;
   successMessage = '';
+
   searchTerm = '';
 
   misReportes: Reporte[] = [];
+
   resumen: ResumenReportes = {
     total: 0,
     recibidos: 0,
@@ -56,13 +59,13 @@ export class ReportesComponent implements OnInit {
     'Presencial'
   ];
 
-  constructor(private reportesService: ReportesService) { }
+  constructor(private reportesService: ReportesService) {}
 
   ngOnInit(): void {
-    this.loadReports();
+    this.cargarReportes();
   }
 
-  loadReports(): void {
+  cargarReportes(): void {
     this.misReportes = this.reportesService.getReportes();
     this.resumen = this.reportesService.getResumen();
   }
@@ -75,7 +78,7 @@ export class ReportesComponent implements OnInit {
     this.formSubmitted = true;
     this.successMessage = '';
 
-    if (!this.validateForm()) return;
+    if (!this.validarFormulario()) return;
 
     const nuevoReporte = {
       fecha: this.fechaIncidente,
@@ -87,24 +90,36 @@ export class ReportesComponent implements OnInit {
     };
 
     this.reportesService.agregarReporte(nuevoReporte);
-    this.successMessage = 'Tu reporte fue registrado correctamente. Gracias por ayudar a proteger a tu comunidad.';
-    this.resetForm();
-    this.loadReports();
+
+    this.successMessage =
+      '✅ Tu reporte fue registrado correctamente. Gracias por ayudar a proteger a tu comunidad.';
+
+    this.limpiarFormulario();
+    this.cargarReportes();
     this.activeTab = 'historial';
   }
 
-  validateForm(): boolean {
-    return !!(
-      this.tipoEstafa &&
-      this.canal &&
-      this.descripcion &&
-      this.descripcion.trim().length >= 20 &&
-      this.fechaIncidente &&
-      (!this.perdidaEconomica || (this.monto !== null && this.monto > 0))
+  validarFormulario(): boolean {
+    const tieneEstafa = !!this.tipoEstafa;
+    const tieneCanal = !!this.canal;
+    const tieneDescripcion =
+      !!this.descripcion && this.descripcion.trim().length >= 20;
+    const tieneFecha = !!this.fechaIncidente;
+
+    const montoValido =
+      !this.perdidaEconomica ||
+      (this.monto !== null && this.monto > 0);
+
+    return (
+      tieneEstafa &&
+      tieneCanal &&
+      tieneDescripcion &&
+      tieneFecha &&
+      montoValido
     );
   }
 
-  resetForm(): void {
+  limpiarFormulario(): void {
     this.tipoEstafa = '';
     this.canal = '';
     this.descripcion = '';
@@ -115,15 +130,15 @@ export class ReportesComponent implements OnInit {
   }
 
   get reportesFiltrados(): Reporte[] {
-    const term = this.searchTerm.trim().toLowerCase();
+    const termino = this.searchTerm.trim().toLowerCase();
 
-    if (!term) return this.misReportes;
+    if (!termino) return this.misReportes;
 
     return this.misReportes.filter(reporte =>
-      reporte.tipoEstafa.toLowerCase().includes(term) ||
-      reporte.canal.toLowerCase().includes(term) ||
-      reporte.estado.toLowerCase().includes(term) ||
-      reporte.descripcion.toLowerCase().includes(term)
+      reporte.tipoEstafa.toLowerCase().includes(termino) ||
+      reporte.canal.toLowerCase().includes(termino) ||
+      reporte.estado.toLowerCase().includes(termino) ||
+      reporte.descripcion.toLowerCase().includes(termino)
     );
   }
 

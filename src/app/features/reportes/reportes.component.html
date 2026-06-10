@@ -1,32 +1,25 @@
 <app-navbar></app-navbar>
 
 <main class="reportes-page">
+
   <section class="hero-card">
     <div class="hero-content">
-      <span class="eyebrow">● Sistema de reportes seguros</span>
-      <h1>Reporta incidentes y protege a tu comunidad</h1>
+      <span class="eyebrow">🛡 Sistema de reportes seguros</span>
+      <h1>Reporta estafas.<br>Protege a tu comunidad.</h1>
       <p>
-        Registra intentos de estafa o fraude de forma clara, rápida y organizada.
-        Toda la información queda centralizada para su seguimiento.
+        Registra intentos de estafa o fraude de forma clara y rápida.
+        Toda la información queda guardada para su seguimiento.
       </p>
-
       <div class="hero-actions">
-        <button
-          type="button"
-          class="btn-primary-custom"
+        <button type="button" class="btn-primary-custom"
           [class.active]="activeTab === 'nuevo'"
-          (click)="setTab('nuevo')"
-        >
-          Nuevo reporte
+          (click)="setTab('nuevo')">
+          ✏️ Nuevo reporte
         </button>
-
-        <button
-          type="button"
-          class="btn-secondary-custom"
+        <button type="button" class="btn-secondary-custom"
           [class.active]="activeTab === 'historial'"
-          (click)="setTab('historial')"
-        >
-          Ver historial
+          (click)="setTab('historial')">
+          📋 Ver historial
         </button>
       </div>
     </div>
@@ -38,36 +31,34 @@
       </div>
       <div class="panel-row">
         <span>En revisión</span>
-        <strong>{{ reportesEnRevision }}</strong>
+        <strong class="highlight-yellow">{{ reportesEnRevision }}</strong>
       </div>
       <div class="panel-row">
         <span>Atendidos</span>
-        <strong>{{ reportesAtendidos }}</strong>
+        <strong class="highlight-green">{{ reportesAtendidos }}</strong>
       </div>
       <div class="panel-row">
-        <span>Pérdidas registradas</span>
-        <strong>{{ reportesConPerdida }}</strong>
+        <span>Con pérdida económica</span>
+        <strong class="highlight-red">{{ reportesConPerdida }}</strong>
       </div>
     </div>
   </section>
 
   <section class="stats-grid">
     <article class="stat-card">
-      <div class="stat-icon icon-alert">⚠</div>
+      <div class="stat-icon icon-alert">⚠️</div>
       <div>
         <h3>42,000+</h3>
         <p>Denuncias por ciberdelitos en Perú durante 2024</p>
       </div>
     </article>
-
     <article class="stat-card">
-      <div class="stat-icon icon-user">👤</div>
+      <div class="stat-icon icon-user">👥</div>
       <div>
         <h3>65,247</h3>
         <p>Adultos mayores en la provincia de Huancayo</p>
       </div>
     </article>
-
     <article class="stat-card">
       <div class="stat-icon icon-money">💸</div>
       <div>
@@ -75,34 +66,28 @@
         <p>De los ciberdelitos están relacionados con fraude informático</p>
       </div>
     </article>
-
     <article class="stat-card">
-      <div class="stat-icon icon-shield">🛡</div>
+      <div class="stat-icon icon-shield">🛡️</div>
       <div>
         <h3>3</h3>
-        <p>Módulos disponibles para protegerte</p>
+        <p>Módulos disponibles para protegerte en esta plataforma</p>
       </div>
     </article>
   </section>
 
   <section class="tabs-shell">
-    <div class="tabs-header">
-      <button
-        type="button"
-        class="tab-button"
-        [class.active]="activeTab === 'nuevo'"
-        (click)="setTab('nuevo')"
-      >
-        Nuevo reporte
-      </button>
 
-      <button
-        type="button"
-        class="tab-button"
+    <div class="tabs-header">
+      <button type="button" class="tab-button"
+        [class.active]="activeTab === 'nuevo'"
+        (click)="setTab('nuevo')">
+        ✏️ Nuevo reporte
+      </button>
+      <button type="button" class="tab-button"
         [class.active]="activeTab === 'historial'"
-        (click)="setTab('historial')"
-      >
-        Mis reportes
+        (click)="setTab('historial')">
+        📋 Mis reportes
+        <span class="tab-badge" *ngIf="totalReportes > 0">{{ totalReportes }}</span>
       </button>
     </div>
 
@@ -110,128 +95,101 @@
       <div class="section-header">
         <div>
           <h2>Formulario de reporte</h2>
-          <p>Completa los campos con la mayor precisión posible.</p>
+          <p>Completa los campos con la mayor precisión posible. Tu reporte ayuda a proteger a otros.</p>
         </div>
       </div>
 
       <form class="report-form" (ngSubmit)="onSubmitReport()">
+
         <div class="field-grid">
           <div class="field">
-            <label for="tipoEstafa">Tipo de estafa</label>
-            <select
-              id="tipoEstafa"
-              name="tipoEstafa"
+            <label for="tipoEstafa">Tipo de estafa *</label>
+            <select id="tipoEstafa" name="tipoEstafa"
               [(ngModel)]="tipoEstafa"
-              [class.invalid]="formSubmitted && !tipoEstafa"
-            >
+              [class.invalid]="formSubmitted && !tipoEstafa">
               <option value="" disabled>Selecciona una opción</option>
-              <option *ngFor="let tipo of tiposEstafaOptions" [value]="tipo">
-                {{ tipo }}
-              </option>
+              <option *ngFor="let tipo of tiposEstafaOptions" [value]="tipo">{{ tipo }}</option>
             </select>
             <small class="error" *ngIf="formSubmitted && !tipoEstafa">
-              Este campo es obligatorio.
+              ⚠️ Este campo es obligatorio.
             </small>
           </div>
 
           <div class="field">
-            <label for="canal">Canal utilizado</label>
-            <select
-              id="canal"
-              name="canal"
+            <label for="canal">Canal utilizado *</label>
+            <select id="canal" name="canal"
               [(ngModel)]="canal"
-              [class.invalid]="formSubmitted && !canal"
-            >
+              [class.invalid]="formSubmitted && !canal">
               <option value="" disabled>Selecciona un canal</option>
-              <option *ngFor="let c of canalOptions" [value]="c">
-                {{ c }}
-              </option>
+              <option *ngFor="let c of canalOptions" [value]="c">{{ c }}</option>
             </select>
             <small class="error" *ngIf="formSubmitted && !canal">
-              Este campo es obligatorio.
+              ⚠️ Este campo es obligatorio.
             </small>
           </div>
         </div>
 
         <div class="field">
-          <label for="descripcion">Descripción del incidente</label>
-          <textarea
-            id="descripcion"
-            name="descripcion"
-            rows="5"
+          <label for="descripcion">Descripción del incidente *</label>
+          <textarea id="descripcion" name="descripcion" rows="5"
             [(ngModel)]="descripcion"
-            placeholder="Describe qué pasó, qué te dijeron y cómo te contactaron..."
-            [class.invalid]="formSubmitted && (!descripcion || descripcion.trim().length < 20)"
-          ></textarea>
+            placeholder="Describe qué pasó, qué te dijeron y cómo te contactaron... (mínimo 20 caracteres)"
+            [class.invalid]="formSubmitted && (!descripcion || descripcion.trim().length < 20)">
+          </textarea>
+          <div class="char-counter" [class.ready]="descripcion.trim().length >= 20">
+            {{ descripcion.trim().length }} / 20 caracteres mínimos
+          </div>
           <small class="error" *ngIf="formSubmitted && (!descripcion || descripcion.trim().length < 20)">
-            La descripción debe tener al menos 20 caracteres.
+            ⚠️ La descripción debe tener al menos 20 caracteres.
           </small>
         </div>
 
         <div class="field">
-          <label>¿Sufriste pérdida económica?</label>
+          <label>¿Sufriste pérdida económica? *</label>
           <div class="radio-group">
-            <label class="radio-pill">
-              <input
-  type="radio"
-  name="perdidaEconomica"
-  [value]="true"
-  [(ngModel)]="perdidaEconomica"
-/>              <span>Sí</span>
+            <label class="radio-pill" [class.selected]="perdidaEconomica === true">
+              <input type="radio" name="perdidaEconomica"
+                [value]="true" [(ngModel)]="perdidaEconomica" />
+              <span>💰 Sí</span>
             </label>
-
-            <label class="radio-pill">
-      <input
-        type="radio"
-        name="perdidaEconomica"
-        [value]="false"
-        [(ngModel)]="perdidaEconomica"
-      />
-      <span>No</span>
-    </label>          </div>
+            <label class="radio-pill" [class.selected]="perdidaEconomica === false">
+              <input type="radio" name="perdidaEconomica"
+                [value]="false" [(ngModel)]="perdidaEconomica" />
+              <span>🚫 No</span>
+            </label>
+          </div>
         </div>
 
         <div class="field-grid">
           <div class="field" *ngIf="perdidaEconomica">
-            <label for="monto">Monto perdido (S/)</label>
-            <input
-              type="number"
-              id="monto"
-              name="monto"
-              [(ngModel)]="monto"
-              min="1"
-              placeholder="Ej. 500"
-              [class.invalid]="formSubmitted && perdidaEconomica && (monto === null || monto <= 0)"
-            />
+            <label for="monto">Monto perdido (S/) *</label>
+            <input type="number" id="monto" name="monto"
+              [(ngModel)]="monto" min="1" placeholder="Ej. 500"
+              [class.invalid]="formSubmitted && perdidaEconomica && (monto === null || monto <= 0)" />
             <small class="error" *ngIf="formSubmitted && perdidaEconomica && (monto === null || monto <= 0)">
-              Ingresa un monto válido mayor a 0.
+              ⚠️ Ingresa un monto válido mayor a 0.
             </small>
           </div>
 
           <div class="field">
-            <label for="fechaIncidente">Fecha del incidente</label>
-            <input
-              type="date"
-              id="fechaIncidente"
-              name="fechaIncidente"
+            <label for="fechaIncidente">Fecha del incidente *</label>
+            <input type="date" id="fechaIncidente" name="fechaIncidente"
               [(ngModel)]="fechaIncidente"
-              [class.invalid]="formSubmitted && !fechaIncidente"
-            />
+              [class.invalid]="formSubmitted && !fechaIncidente" />
             <small class="error" *ngIf="formSubmitted && !fechaIncidente">
-              La fecha es obligatoria.
+              ⚠️ La fecha es obligatoria.
             </small>
           </div>
         </div>
 
-        <div class="success-box" *ngIf="successMessage">
+        <div class="success-box" *ngIf="successMessage" role="alert">
           {{ successMessage }}
         </div>
 
         <div class="form-actions">
-          <button type="submit" class="submit-button">
-            Enviar reporte
-          </button>
+          <button type="submit" class="submit-button">Enviar reporte →</button>
         </div>
+
       </form>
     </div>
 
@@ -241,20 +199,21 @@
           <h2>Historial de reportes</h2>
           <p>Consulta tus reportes registrados y su estado actual.</p>
         </div>
-
         <div class="search-box">
-          <input
-            type="text"
-            [(ngModel)]="searchTerm"
-            name="searchTerm"
-            placeholder="Buscar por tipo, canal o estado..."
-          />
+          <span class="search-icon">🔍</span>
+          <input type="text" [(ngModel)]="searchTerm" name="searchTerm"
+            placeholder="Buscar por tipo, canal o estado..." />
         </div>
       </div>
 
       <div *ngIf="reportesFiltrados.length === 0" class="empty-state">
+        <div class="empty-icon">📭</div>
         <h3>No hay reportes para mostrar</h3>
-        <p>Aún no tienes reportes registrados o no coinciden con tu búsqueda.</p>
+        <p *ngIf="searchTerm">No se encontraron reportes que coincidan con "<strong>{{ searchTerm }}</strong>".</p>
+        <p *ngIf="!searchTerm">Aún no has registrado ningún reporte.</p>
+        <button type="button" class="btn-primary-custom" (click)="setTab('nuevo')">
+          Crear primer reporte
+        </button>
       </div>
 
       <div class="table-wrapper" *ngIf="reportesFiltrados.length > 0">
@@ -271,16 +230,18 @@
           <tbody>
             <tr *ngFor="let reporte of reportesFiltrados">
               <td>{{ reporte.fecha }}</td>
-              <td>
+              <td class="td-descripcion">
                 <strong>{{ reporte.tipoEstafa }}</strong>
                 <p>{{ reporte.descripcion }}</p>
               </td>
               <td>{{ reporte.canal }}</td>
               <td>
-                <span *ngIf="reporte.perdidaEconomica; else sinPerdida">
+                <span *ngIf="reporte.perdidaEconomica; else sinPerdida" class="monto-chip">
                   {{ formatMonto(reporte.monto) }}
                 </span>
-                <ng-template #sinPerdida> No </ng-template>
+                <ng-template #sinPerdida>
+                  <span class="no-perdida">No</span>
+                </ng-template>
               </td>
               <td>
                 <span [class]="getBadgeClass(reporte.estado)">
@@ -291,6 +252,8 @@
           </tbody>
         </table>
       </div>
+
     </div>
   </section>
+
 </main>
