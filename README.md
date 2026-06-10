@@ -1,59 +1,142 @@
-# Frontend
+# Alerta Digital
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.9.
+Sistema de alertas y monitoreo en tiempo real desarrollado con **Angular 21**. Una aplicación frontend moderna y responsive para gestionar y visualizar alertas de forma eficiente.
 
-## Development server
+---
 
-To start a local development server, run:
+##  Información del Proyecto
 
+- **Nombre:** Alerta Digital
+- **Versión:** 0.0.0
+- **Estado:** En desarrollo
+- **Licencia:** -
+- **Repositorio:** [piero-hm/Alerta-Digital---proyecto](https://github.com/piero-hm/Alerta-Digital---proyecto)
+
+---
+
+
+##  Requisitos
+
+- **Node.js:** v18+ 
+- **npm:** 10.9.4+
+- **Angular CLI:** 21.2.9
+
+---
+
+##  Instalación y Setup
+
+### 1. Clonar el repositorio
 ```bash
+git clone https://github.com/piero-hm/Alerta-Digital---proyecto.git
+cd Alerta-Digital---proyecto
+```
+
+### 2. Instalar dependencias
+```bash
+npm install
+```
+
+Este comando instalará automáticamente todas las dependencias necesarias:
+- Angular Core & Modules
+- RxJS
+- TypeScript
+- Vitest
+- Prettier
+
+---
+
+## Comandos Disponibles
+
+### Desarrollo
+```bash
+# Iniciar servidor de desarrollo
+npm start
+# o
 ng serve
 ```
+Abre tu navegador en `http://localhost:4200/`
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+### Build
 ```bash
-ng generate component component-name
+# Compilar para producción
+npm run build
+```
+Los archivos compilados se guardarán en `dist/`
+
+
+
+
+##  Estructura del Proyecto
+
+```
+Alerta-Digital---proyecto/
+├── src/
+│   ├── app/              # Componentes y lógica de la aplicación
+│   ├── assets/           # Imágenes y recursos estáticos
+│   ├── styles/           # Estilos globales
+│   └── main.ts           # Punto de entrada
+├── dist/                 # Build de producción (generado)
+├── package.json          # Dependencias del proyecto
+├── angular.json          # Configuración de Angular CLI
+├── tsconfig.json         # Configuración de TypeScript
+└── README.md             # Este archivo
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Más información
+Para más comandos disponibles, consulta:
+- [Angular CLI Documentation](https://angular.dev/tools/cli)
+- [Angular Guide](https://angular.dev)
+
+---
+
+## 🧪 Testing
+
+Proyecto configurado con **Vitest** para pruebas unitarias:
 
 ```bash
-ng generate --help
+npm test
 ```
 
-## Building
+---
 
-To build the project run:
+## 📝 Dependencias Principales
 
-```bash
-ng build
-```
+### Dependencias de Producción
+- `@angular/common` - Módulos comunes de Angular
+- `@angular/core` - Core de Angular
+- `@angular/forms` - Manejo de formularios
+- `@angular/platform-browser` - Plataforma del navegador
+- `@angular/router` - Enrutamiento
+- `rxjs` - Programación reactiva
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Dependencias de Desarrollo
+- `@angular/cli` - CLI de Angular
+- `@angular/build` - Build de Angular
+- `typescript` - Lenguaje TypeScript
+- `vitest` - Framework de testing
+- `prettier` - Formateador de código
 
-## Running unit tests
+---
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## 📄 Licencia
 
-```bash
-ng test
-```
+Este proyecto actualmente no cuenta con una licencia especificada.
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 👤 Autor
 
-```bash
-ng e2e
-```
+**piero-hm** - [GitHub Profile](https://github.com/piero-hm)
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+## 📞 Soporte
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Si encuentras problemas o tienes sugerencias:
+- Abre un [Issue](https://github.com/piero-hm/Alerta-Digital---proyecto/issues)
+- Envía un [Pull Request](https://github.com/piero-hm/Alerta-Digital---proyecto/pulls)
+
+---
+
+
+**Última actualización:** Junio 2026
