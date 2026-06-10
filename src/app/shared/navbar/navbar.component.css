@@ -1,0 +1,188 @@
+.custom-navbar {
+  background-color: #0B132B;
+  border-bottom: 1px solid rgba(72, 202, 228, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  height: 80px;
+  transition: all 0.3s ease;
+}
+
+.custom-navbar-container {
+  max-width: 1200px; /* max-w-7xl */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.custom-brand {
+  gap: 8px; /* gap-sm */
+  font-family: "Hanken Grotesk", sans-serif; /* font-headline-md */
+  font-weight: 700; /* font-bold */
+  color: #72e6ff; /* text-primary */
+  letter-spacing: -0.02em; /* tracking-tight */
+}
+
+.custom-shield-icon {
+  font-size: 32px;
+  color: #72e6ff; /* text-primary */
+  filter: drop-shadow(0 0 8px rgba(72, 202, 228, 0.8));
+}
+
+.custom-brand-top {
+  font-size: 14px;
+  letter-spacing: 0.05em; /* tracking-widest */
+}
+
+.custom-brand-bottom {
+  font-size: 18px;
+}
+
+.custom-nav-links {
+  gap: 48px; /* gap-lg */
+}
+
+.custom-nav-link {
+  color: #bcc9cc; /* text-on-surface-variant */
+  position: relative;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-family: "JetBrains Mono", monospace; /* font-label-mono */
+  font-size: 18px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.custom-nav-link:hover {
+  color: #72e6ff; /* hover:text-primary */
+}
+
+.custom-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #72e6ff; /* bg-primary */
+  transition: all 0.3s ease;
+}
+
+.custom-nav-link:hover::after {
+  width: 100%;
+}
+
+.custom-nav-link.active-link {
+  color: #72e6ff; /* text-primary */
+  font-weight: 700; /* font-bold */
+}
+
+.custom-nav-link.active-link::after {
+  width: 100%;
+  box-shadow: 0 0 8px rgba(114, 230, 255, 0.8);
+}
+
+.custom-user-section {
+  gap: 24px; /* gap-md */
+}
+
+.custom-user-info {
+  gap: 8px; /* gap-sm */
+  color: #dbe1ff; /* text-on-surface */
+  background-color: #050d25; /* bg-surface-container-lowest */
+  padding: 8px 24px; /* px-md py-2 */
+  border-radius: 8px; /* rounded-lg */
+  border: 1px solid rgba(61, 73, 76, 0.3); /* border-outline-variant/30 */
+  font-family: "JetBrains Mono", monospace; /* font-label-mono */
+  font-size: 16px; /* text-label-mono */
+}
+
+.custom-user-icon {
+  font-size: 20px;
+  color: #72e6ff; /* text-primary */
+}
+
+.custom-user-name {
+  font-weight: 500; /* font-medium */
+}
+
+.custom-online-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #00E676;
+  box-shadow: 0 0 8px rgba(0, 230, 118, 0.5);
+}
+
+.custom-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px; /* gap-xs */
+  font-family: "Hanken Grotesk", sans-serif; /* font-button-text */
+  font-size: 16px;
+  color: white;
+  background-color: #050d25; /* bg-surface-container-lowest */
+  border: 2px solid #FF4D4D;
+  transition: all 0.3s ease;
+  padding: 8px 48px; /* px-lg py-2 */
+  border-radius: 8px; /* rounded-lg */
+  box-shadow: 0 0 15px rgba(255, 77, 77, 0.3);
+}
+
+.custom-logout-btn:hover {
+  background-color: #FF4D4D;
+  color: white;
+  box-shadow: 0 0 20px rgba(255, 77, 77, 0.5);
+}
+
+.custom-logout-icon {
+  font-size: 20px;
+  color: white;
+}
+
+.custom-logout-text {
+  color: white;
+}
+
+/* --- Responsive adjustments for Navbar --- */
+
+/* Navbar Toggler Icon Color */
+.navbar-toggler-icon {
+  filter: invert(1) brightness(2); /* Make the icon white/bright */
+}
+
+/* Styles for collapsed menu on small screens */
+@media (max-width: 991.98px) { /* Bootstrap's lg breakpoint */
+  .custom-navbar {
+    height: auto; /* Allow height to adjust when collapsed */
+  }
+  .navbar-collapse {
+    background-color: #0B132B; /* Background for the collapsed menu */
+    padding: 1rem;
+    border-top: 1px solid rgba(72, 202, 228, 0.3);
+  }
+  .custom-nav-links {
+    flex-direction: column; /* Stack links vertically */
+    gap: 0; /* Remove gap for stacked links */
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .custom-nav-link {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100%; /* Full width for clickable area */
+  }
+  .custom-user-section {
+    flex-direction: column;
+    align-items: flex-start !important; /* Align items to start in mobile */
+    width: 100%;
+    padding: 1rem;
+    border-top: 1px solid rgba(72, 202, 228, 0.3);
+    margin-top: 1rem;
+  }
+  .custom-user-info {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .custom-logout-btn {
+    width: 100%;
+  }
+}

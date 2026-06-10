@@ -1,41 +1,37 @@
-# Alerta Digital — Ciberseguro Huancayo
+# Alerta Digital
 
-Plataforma de protección digital para adultos mayores en la región Junín, Perú.  
-Sistema de capacitación en ciberseguridad con módulos educativos, quizzes interactivos y registro de incidentes de fraude.
-
----
-
-## 🧠 Tecnologías
-
-| Capa | Tecnología |
-|---|---|
-| **Frontend** | Angular 21 (standalone components) |
-| **Backend** | Python 3.12 + FastAPI |
-| **Base de datos** | MySQL |
-| **ORM** | SQLAlchemy 2.0 |
-| **Autenticación** | JWT (python-jose + bcrypt) |
+Sistema de alertas y monitoreo en tiempo real desarrollado con **Angular 21**. Una aplicación frontend moderna y responsive para gestionar y visualizar alertas de forma eficiente.
 
 ---
 
-## 📋 Prerrequisitos
+##  Información del Proyecto
 
-- **Node.js** v18 o superior
-- **Python** 3.12 o superior
-- **MySQL** funcionando
-- **npm** (viene con Node.js)
-- **pip** (viene con Python)
+- **Nombre:** Alerta Digital
+- **Versión:** 0.0.0
+- **Estado:** En desarrollo
+- **Licencia:** -
+- **Repositorio:** [piero-hm/Alerta-Digital---proyecto](https://github.com/piero-hm/Alerta-Digital---proyecto)
 
 ---
 
-## 🚀 Instalación
+
+##  Requisitos
+
+- **Node.js:** v18+ 
+- **npm:** 10.9.4+
+- **Angular CLI:** 21.2.9
+
+---
+
+##  Instalación y Setup
 
 ### 1. Clonar el repositorio
-
 ```bash
 git clone https://github.com/piero-hm/Alerta-Digital---proyecto.git
 cd Alerta-Digital---proyecto
 ```
 
+<<<<<<< HEAD
 ### 2. Configurar el Backend
 
 ```bash
@@ -154,8 +150,118 @@ ng serve
 
 # Frontend — construcción para producción
 ng build
+=======
+### 2. Instalar dependencias
+```bash
+npm install
+```
+
+Este comando instalará automáticamente todas las dependencias necesarias:
+- Angular Core & Modules
+- RxJS
+- TypeScript
+- Vitest
+- Prettier
+
+---
+
+## Comandos Disponibles
+
+### Desarrollo
+```bash
+# Iniciar servidor de desarrollo
+npm start
+# o
+ng serve
+```
+Abre tu navegador en `http://localhost:4200/`
+
+### Build
+```bash
+# Compilar para producción
+npm run build
+```
+Los archivos compilados se guardarán en `dist/`
+
+
+
+
+##  Estructura del Proyecto
+
+```
+Alerta-Digital---proyecto/
+├── src/
+│   ├── app/              # Componentes y lógica de la aplicación
+│   ├── assets/           # Imágenes y recursos estáticos
+│   ├── styles/           # Estilos globales
+│   └── main.ts           # Punto de entrada
+├── dist/                 # Build de producción (generado)
+├── package.json          # Dependencias del proyecto
+├── angular.json          # Configuración de Angular CLI
+├── tsconfig.json         # Configuración de TypeScript
+└── README.md             # Este archivo
+```
+
+### Más información
+Para más comandos disponibles, consulta:
+- [Angular CLI Documentation](https://angular.dev/tools/cli)
+- [Angular Guide](https://angular.dev)
+
+---
+
+## 🧪 Testing
+
+Proyecto configurado con **Vitest** para pruebas unitarias:
+
+```bash
+npm test
+>>>>>>> 3b73859 (Velita Lozano Anyelo)
 ```
 
 ---
 
+<<<<<<< HEAD
 Desarrollado como proyecto de investigación para la prevención de ciberdelitos en adultos mayores — Región Junín, Perú.
+=======
+## 📝 Dependencias Principales
+
+### Dependencias de Producción
+- `@angular/common` - Módulos comunes de Angular
+- `@angular/core` - Core de Angular
+- `@angular/forms` - Manejo de formularios
+- `@angular/platform-browser` - Plataforma del navegador
+- `@angular/router` - Enrutamiento
+- `rxjs` - Programación reactiva
+
+### Dependencias de Desarrollo
+- `@angular/cli` - CLI de Angular
+- `@angular/build` - Build de Angular
+- `typescript` - Lenguaje TypeScript
+- `vitest` - Framework de testing
+- `prettier` - Formateador de código
+
+---
+
+## 📄 Licencia
+
+Este proyecto actualmente no cuenta con una licencia especificada.
+
+---
+
+## 👤 Autor
+
+**piero-hm** - [GitHub Profile](https://github.com/piero-hm)
+
+---
+
+## 📞 Soporte
+
+Si encuentras problemas o tienes sugerencias:
+- Abre un [Issue](https://github.com/piero-hm/Alerta-Digital---proyecto/issues)
+- Envía un [Pull Request](https://github.com/piero-hm/Alerta-Digital---proyecto/pulls)
+
+---
+
+
+**Última actualización:** Junio 2026
+>>>>>>> 3b73859 (Velita Lozano Anyelo)

@@ -1,0 +1,138 @@
+<div class="modulo-detalle-page-wrapper">
+  <app-navbar></app-navbar>
+
+  <main class="container-fluid modulo-detalle-main-content">
+    <!-- Botón de retorno -->
+    <div class="mb-5">
+      <button class="btn btn-lg modulo-detalle-back-button" (click)="goBack()" aria-label="Volver a los Módulos">
+        <span class="material-symbols-outlined me-2">arrow_back</span> Volver a los Módulos
+      </button>
+    </div>
+
+    @if (modulo) {
+      <section class="modulo-detalle-header mb-5">
+        <div class="d-flex align-items-center mb-4">
+          <span class="material-symbols-outlined modulo-detalle-icon me-3">{{ modulo.icono }}</span>
+          <h1 class="modulo-detalle-title">{{ modulo.titulo }}</h1>
+        </div>
+        <p class="modulo-detalle-introduction">{{ modulo.introduccion }}</p>
+      </section>
+
+      <!-- NUEVA SECCIÓN: Identifica las señales de peligro (con imagen) -->
+      @if (modulo.urlImagenSimulacion) {
+        <section class="modulo-detalle-section modulo-detalle-simulacion-section mb-5">
+          <div class="d-flex align-items-center justify-content-center modulo-detalle-section-header-primary mb-4">
+            <span class="material-symbols-outlined fill-icon modulo-detalle-section-icon-primary me-3">visibility</span>
+            <h2 class="modulo-detalle-section-title">Identifica las señales de peligro</h2>
+          </div>
+          <div class="text-center">
+            <img [src]="modulo.urlImagenSimulacion" alt="Simulación de estafa de {{ modulo.titulo }}" class="img-fluid modulo-detalle-simulacion-image">
+          </div>
+        </section>
+      }
+
+      <section class="modulo-detalle-section mb-5">
+        <div class="d-flex align-items-center modulo-detalle-section-header-error mb-4">
+          <span class="material-symbols-outlined fill-icon modulo-detalle-section-icon-error me-3">policy</span>
+          <h2 class="modulo-detalle-section-title">Cómo detectarlo</h2>
+        </div>
+        <div class="row g-4">
+          @for (senal of modulo.comoDetectarlo; track $index) {
+            <div class="col-12 col-md-4"> <!-- CAMBIADO A col-12 col-md-4 -->
+              <div class="modulo-detalle-alert-card d-flex align-items-start">
+                <div class="modulo-detalle-alert-icon-wrap me-3">
+                  <span class="material-symbols-outlined modulo-detalle-alert-icon">{{ senal.icono }}</span>
+                </div>
+                <div>
+                  <h3 class="modulo-detalle-alert-title mb-2">{{ senal.titulo }}</h3>
+                  <p class="modulo-detalle-alert-description">{{ senal.descripcion }}</p>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+
+      <!-- Sección "Cómo prevenirlos" (antes "Reglas de Oro") -->
+      <section class="modulo-detalle-section modulo-detalle-rules-section mb-5">
+        <div class="modulo-detalle-rules-section-bg-effect"></div>
+        <div class="d-flex align-items-center modulo-detalle-section-header-primary mb-4">
+          <span class="material-symbols-outlined fill-icon modulo-detalle-section-icon-primary me-3">verified_user</span>
+          <h2 class="modulo-detalle-section-title">Cómo prevenirlos</h2> <!-- TÍTULO CAMBIADO -->
+        </div>
+        @if (modulo.urlImagenPrevencion) {
+          <div class="text-center mb-4">
+            <img [src]="modulo.urlImagenPrevencion" alt="Imagen de prevención para {{ modulo.titulo }}" class="img-fluid modulo-detalle-prevencion-image">
+          </div>
+        }
+        <ul class="modulo-detalle-rules-list">
+          @for (regla of modulo.reglasDeOro; track $index) {
+            <li>
+              <div class="modulo-detalle-rule-item d-flex align-items-start">
+                <span class="material-symbols-outlined modulo-detalle-rule-icon me-3">{{ regla.icono }}</span>
+                <p class="modulo-detalle-rule-text">{{ regla.texto }}</p>
+              </div>
+            </li>
+          }
+        </ul>
+      </section>
+
+      @if (modulo.recursosAdicionales && modulo.recursosAdicionales.length > 0) {
+        <section class="modulo-detalle-section mb-5">
+          <div class="d-flex align-items-center modulo-detalle-section-header-secondary mb-4">
+            <span class="material-symbols-outlined modulo-detalle-section-icon-secondary me-3">folder_open</span>
+            <h2 class="modulo-detalle-section-title">Recursos Adicionales</h2>
+          </div>
+          <div class="row g-4">
+            @for (recurso of modulo.recursosAdicionales; track $index) {
+              <div class="col-12 col-md-6 col-lg-4">
+                <a [href]="recurso.url" target="_blank" class="modulo-detalle-resource-card d-flex align-items-center">
+                  <span class="material-symbols-outlined modulo-detalle-resource-icon me-3">{{ recurso.icono }}</span>
+                  <div class="flex-grow-1">
+                    <h3 class="modulo-detalle-resource-name mb-1">{{ recurso.nombre }}</h3>
+                    <p class="modulo-detalle-resource-detail mb-0">{{ recurso.detalle }}</p>
+                  </div>
+                  <span class="material-symbols-outlined modulo-detalle-resource-action-icon ms-auto">open_in_new</span>
+                </a>
+              </div>
+            }
+          </div>
+        </section>
+      }
+
+      @if (modulo.testimonios && modulo.testimonios.length > 0) {
+        <section class="modulo-detalle-section modulo-detalle-testimonials-section mb-5">
+          <div class="d-flex align-items-center justify-content-center modulo-detalle-section-header-primary mb-4">
+            <span class="material-symbols-outlined modulo-detalle-section-icon-primary me-3">forum</span>
+            <h2 class="modulo-detalle-section-title">Testimonios de la Comunidad</h2>
+          </div>
+          <div class="row g-4">
+            @for (testimonio of modulo.testimonios; track $index) {
+              <div class="col-12 col-md-6">
+                <div class="modulo-detalle-testimonial-card">
+                  <span class="material-symbols-outlined modulo-detalle-testimonial-quote-icon">format_quote</span>
+                  <p class="modulo-detalle-testimonial-text mb-3">{{ testimonio.texto }}</p>
+                  <p class="modulo-detalle-testimonial-author mb-0">— {{ testimonio.autor }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+      }
+
+      <!-- NUEVO BOTÓN DE ACCIÓN FINAL -->
+      <section class="text-center mb-5">
+        <button class="btn btn-lg modulo-detalle-action-button" routerLink="/quiz" aria-label="Practicar en el Simulador">
+          <span class="material-symbols-outlined me-2">quiz</span> Practicar en el Simulador
+        </button>
+      </section>
+
+    } @else {
+      <div class="alert alert-warning text-center" role="alert">
+        Módulo no encontrado.
+      </div>
+    }
+  </main>
+
+  <app-footer></app-footer>
+</div>
