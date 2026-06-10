@@ -1,11 +1,11 @@
-<nav class="navbar navbar-expand-lg">
-  <div class="container-fluid">
-    <!-- Left Side - Logo -->
-    <a class="navbar-brand" routerLink="/dashboard">
-      <span class="shield-icon">🛡️</span>
-      <div>
-        CIBERSEGURO
-        <div class="subtitle">HUANCAYO</div>
+<nav class="navbar navbar-expand-lg fixed-top custom-navbar">
+  <div class="container-fluid custom-navbar-container">
+    <!-- Far Left: Brand Logo -->
+    <a class="navbar-brand d-flex align-items-center custom-brand" routerLink="/dashboard">
+      <span class="material-symbols-outlined custom-shield-icon">shield_lock</span>
+      <div class="d-flex flex-column lh-1">
+        <span class="custom-brand-top">CIBERSEGURO</span>
+        <span class="custom-brand-bottom">HUANCAYO</span>
       </div>
     </a>
 
@@ -16,47 +16,34 @@
 
     <!-- Collapsible Content -->
     <div class="collapse navbar-collapse" id="navbarNav">
-      <!-- Center - Navigation Links -->
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 d-none d-md-flex">
+      <!-- Center: Navigation Links -->
+      <ul class="navbar-nav custom-nav-links mx-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active-link">[ INICIO ]</a>
+          <a class="nav-link custom-nav-link" routerLink="/dashboard" routerLinkActive="active-link">INICIO</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/educacion" routerLinkActive="active-link">[ EDUCACIÓN ]</a>
+          <a class="nav-link custom-nav-link" routerLink="/educacion" routerLinkActive="active-link">EDUCACIÓN</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/quiz" routerLinkActive="active-link">[ QUIZ ]</a>
+          <a class="nav-link custom-nav-link" routerLink="/quiz" routerLinkActive="active-link">QUIZ / SIMULADOR</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/reportes" routerLinkActive="active-link">[ REPORTES ]</a>
+          <a class="nav-link custom-nav-link" routerLink="/reportes" routerLinkActive="active-link">REPORTE COMUNITARIO</a>
         </li>
       </ul>
 
-      <!-- Right Side - User and Session -->
-      <div class="d-flex align-items-center">
-        <span class="user-info">
-          <span class="online-indicator">●</span> {{ userName }}
-        </span>
-        <button class="logout-btn" (click)="onLogout()">
-          ⏻ SALIR
+      <!-- Far Right: User Profile & Logout -->
+      <div class="d-flex align-items-center custom-user-section ms-auto">
+        <div class="d-flex align-items-center custom-user-info">
+          <span class="material-symbols-outlined custom-user-icon">account_circle</span>
+          <span class="custom-user-name">Juan Pérez</span>
+          <span class="custom-online-indicator"></span>
+        </div>
+        <button class="btn custom-logout-btn" (click)="onLogout()">
+          <span class="material-symbols-outlined custom-logout-icon">logout</span>
+          <span class="custom-logout-text">SALIR</span>
         </button>
       </div>
-
-      <!-- Mobile Navigation Links (visible only on small screens) -->
-      <ul class="navbar-nav d-md-none mt-3">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active-link">INICIO</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/educacion" routerLinkActive="active-link">EDUCACIÓN</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/quiz" routerLinkActive="active-link">QUIZ</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/reportes" routerLinkActive="active-link">REPORTES</a>
-        </li>
-      </ul>
     </div>
   </div>
 </nav>

@@ -1,120 +1,92 @@
-<div class="container-fluid login-page">
-  <div class="row min-vh-100 justify-content-center align-items-center">
+<div class="login-page-wrapper">
+  <!-- Central Glow -->
+  <div class="central-glow"></div>
 
-    <div class="col-11 col-sm-9 col-md-7 col-lg-5 col-xl-4">
-
-      <div class="card border-0 shadow-lg login-card">
-
-        <div class="card-body p-5">
-
-          <!-- Encabezado -->
-          <div class="text-center mb-4">
-
-            <div class="logo-circle mb-3">
-              🛡️
-            </div>
-
-            <h1 class="fw-bold text-primary mb-2">
-              CiberSeguro Huancayo
-            </h1>
-
-            <p class="text-secondary">
-              Plataforma de prevención y protección contra estafas digitales
-            </p>
-
-          </div>
-
-          <!-- Formulario -->
-          <form (ngSubmit)="onLogin()">
-
-            <!-- Correo -->
-            <div class="mb-4">
-              <label class="form-label fw-semibold">
-                Correo electrónico
-              </label>
-
-              <div class="input-group">
-
-                <input
-                  type="email"
-                  class="form-control"
-                  [(ngModel)]="email"
-                  name="email"
-                  placeholder="Ingrese su correo"
-                  required>
-              </div>
-            </div>
-
-            <!-- Contraseña -->
-            <div class="mb-4">
-
-              <label class="form-label fw-semibold">
-                Contraseña
-              </label>
-
-              <div class="input-group">
-
-
-                <input
-                  type="password"
-                  class="form-control"
-                  [(ngModel)]="password"
-                  name="password"
-                  placeholder="Ingrese su contraseña"
-                  required>
-
-              </div>
-
-            </div>
-
-            <!-- Error -->
-            <div
-              *ngIf="errorMessage"
-              class="alert alert-danger">
-
-              ⚠ {{ errorMessage }}
-
-            </div>
-
-            <!-- Botón -->
-            <div class="d-grid mb-4">
-
-              <button
-                type="submit"
-                class="btn btn-primary btn-lg">
-
-                Ingresar
-
-              </button>
-
-            </div>
-
-          </form>
-
-          <hr>
-
-          <!-- Registro -->
-          <div class="text-center">
-
-            <p class="mb-0 text-secondary">
-              ¿No tienes cuenta?
-            </p>
-
-            <a
-              routerLink="/register"
-              class="fw-bold text-decoration-none">
-
-              Crear una cuenta
-
-            </a>
-
-          </div>
-
+  <!-- Login Container -->
+  <main class="login-container">
+    <div class="login-card">
+      <!-- Brand Hero -->
+      <div class="text-center mb-4">
+        <div class="brand-logo-circle mb-3">
+          <span class="material-symbols-outlined security-icon">security</span>
         </div>
-
+        <h1 class="brand-title mb-1">
+          CIBERSEGURO<br />HUANCAYO
+        </h1>
+        <p class="brand-subtitle mx-auto">
+          Plataforma de prevención y protección contra estafas digitales para adultos mayores
+        </p>
       </div>
 
-    </div>
+      <!-- Login Form -->
+      <form (ngSubmit)="onLogin()" class="login-form">
+        <!-- Email Input -->
+        <div class="mb-3">
+          <label class="form-label custom-label" for="email">
+            Correo electrónico
+          </label>
+          <div class="input-group custom-input-group">
+            <span class="input-group-text custom-input-icon">
+              <span class="material-symbols-outlined">mail</span>
+            </span>
+            <input
+              type="email"
+              class="form-control custom-input"
+              id="email"
+              name="email"
+              placeholder="Ingrese su correo"
+              required
+              [(ngModel)]="email"
+            />
+          </div>
+        </div>
 
-  </div>
+        <!-- Password Input -->
+        <div class="mb-3">
+          <label class="form-label custom-label" for="password">
+            Contraseña
+          </label>
+          <div class="input-group custom-input-group">
+            <span class="input-group-text custom-input-icon">
+              <span class="material-symbols-outlined">lock</span>
+            </span>
+            <input
+              type="password"
+              class="form-control custom-input"
+              id="password"
+              name="password"
+              placeholder="Ingrese su contraseña"
+              required
+              [(ngModel)]="password"
+            />
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3" role="alert">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-3">
+          <button type="submit" class="btn custom-login-btn">
+            <span class="material-symbols-outlined">login</span>
+            Ingresar
+          </button>
+        </div>
+      </form>
+
+      <!-- Footer Links -->
+      <div class="login-footer-links mt-4 pt-3 text-center">
+        <p class="mb-0 custom-footer-text">
+          ¿No tienes cuenta?
+          <a class="custom-footer-link" routerLink="/register">Crear una cuenta</a>
+        </p>
+        <div class="d-flex align-items-center justify-content-center gap-2 mt-3 custom-footer-info">
+          <span class="material-symbols-outlined">verified_user</span>
+          <span>Región Junín - Plataforma Segura</span>
+        </div>
+      </div>
+    </div>
+  </main>
 </div>
