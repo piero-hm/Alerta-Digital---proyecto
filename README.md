@@ -11,7 +11,7 @@ Sistema de capacitación en ciberseguridad con módulos educativos, quizzes inte
 |---|---|
 | **Frontend** | Angular 21 (standalone components) |
 | **Backend** | Python 3.12 + FastAPI |
-| **Base de datos** | MySQL / SQL Server |
+| **Base de datos** | MySQL |
 | **ORM** | SQLAlchemy 2.0 |
 | **Autenticación** | JWT (python-jose + bcrypt) |
 
@@ -21,7 +21,7 @@ Sistema de capacitación en ciberseguridad con módulos educativos, quizzes inte
 
 - **Node.js** v18 o superior
 - **Python** 3.12 o superior
-- **MySQL** o **SQL Server** funcionando
+- **MySQL** funcionando
 - **npm** (viene con Node.js)
 - **pip** (viene con Python)
 
