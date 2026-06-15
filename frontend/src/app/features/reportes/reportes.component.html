@@ -1,0 +1,373 @@
+<app-navbar></app-navbar>
+
+<div class="bg-mesh"></div>
+<div class="grid-lines"></div>
+
+<main class="reportes-main container">
+
+  <!-- HERO SECTION -->
+  <section class="reportes-hero card border-0 mb-4 animate-on-scroll">
+    <div class="card-body p-4 p-md-5">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <div class="reportes-hero-badge mb-3">
+            <span class="badge rounded-pill reportes-badge-live">
+              <span class="reportes-live-dot"></span>
+              Sistema de reportes seguros
+            </span>
+          </div>
+          <h1 class="reportes-hero-title">Reporta incidentes y protege a tu comunidad</h1>
+          <p class="reportes-hero-subtitle">
+            Registra intentos de estafa o fraude de forma clara, rápida y organizada.
+            Toda la información queda centralizada para su seguimiento.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <button class="btn reportes-btn-primary btn-lg" [class.active]="activeTab === 'nuevo'" (click)="setTab('nuevo')">
+              <span class="material-symbols-outlined me-2">add_circle</span>
+              Nuevo reporte
+            </button>
+            <button class="btn reportes-btn-secondary btn-lg" [class.active]="activeTab === 'historial'" (click)="setTab('historial')">
+              <span class="material-symbols-outlined me-2">history</span>
+              Ver historial
+            </button>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="reportes-stats-card">
+            <div class="reportes-stats-header">
+              <span class="material-symbols-outlined">summarize</span>
+              <span>Resumen de reportes</span>
+            </div>
+            <div class="reportes-stats-body">
+              <div class="reportes-stat-item">
+                <span class="reportes-stat-label">
+                  <span class="material-symbols-outlined">description</span>
+                  Total reportes
+                </span>
+                <span class="reportes-stat-value">{{ totalReportes }}</span>
+              </div>
+              <div class="reportes-stat-item">
+                <span class="reportes-stat-label">
+                  <span class="material-symbols-outlined">schedule</span>
+                  Pendientes
+                </span>
+                <span class="reportes-stat-value reportes-stat-warning">{{ reportesPendientes }}</span>
+              </div>
+              <div class="reportes-stat-item">
+                <span class="reportes-stat-label">
+                  <span class="material-symbols-outlined">rate_review</span>
+                  En revisión
+                </span>
+                <span class="reportes-stat-value reportes-stat-accent">{{ reportesEnRevision }}</span>
+              </div>
+              <div class="reportes-stat-item">
+                <span class="reportes-stat-label">
+                  <span class="material-symbols-outlined">check_circle</span>
+                  Atendidos
+                </span>
+                <span class="reportes-stat-value reportes-stat-success">{{ reportesAtendidos }}</span>
+              </div>
+            </div>
+            <div class="reportes-stats-footer">
+              <span class="reportes-stats-pulse"></span>
+              Datos actualizados en tiempo real
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METRIC CARDS -->
+  <section class="row g-3 mb-4 animate-on-scroll">
+    <div class="col-sm-6 col-lg-3">
+      <div class="card reportes-metric-card border-0 h-100">
+        <div class="card-body d-flex align-items-center gap-3 p-4">
+          <div class="reportes-metric-icon reportes-metric-icon--amber">
+            <span class="material-symbols-outlined">report</span>
+          </div>
+          <div>
+            <div class="reportes-metric-value">{{ totalReportes }}</div>
+            <div class="reportes-metric-label">Reportes registrados</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card reportes-metric-card border-0 h-100">
+        <div class="card-body d-flex align-items-center gap-3 p-4">
+          <div class="reportes-metric-icon reportes-metric-icon--blue">
+            <span class="material-symbols-outlined">money_off</span>
+          </div>
+          <div>
+            <div class="reportes-metric-value">{{ reportesConPerdida }}</div>
+            <div class="reportes-metric-label">Con pérdida económica</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card reportes-metric-card border-0 h-100">
+        <div class="card-body d-flex align-items-center gap-3 p-4">
+          <div class="reportes-metric-icon reportes-metric-icon--teal">
+            <span class="material-symbols-outlined">payments</span>
+          </div>
+          <div>
+            <div class="reportes-metric-value">{{ montoTotal > 0 ? (montoTotal | currency:'S/ ') : '—' }}</div>
+            <div class="reportes-metric-label">Monto total afectado</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card reportes-metric-card border-0 h-100">
+        <div class="card-body d-flex align-items-center gap-3 p-4">
+          <div class="reportes-metric-icon reportes-metric-icon--orange">
+            <span class="material-symbols-outlined">trending_up</span>
+          </div>
+          <div>
+            <div class="reportes-metric-value">{{ tiposFraudeOptions.length }}</div>
+            <div class="reportes-metric-label">Tipos de fraude monitoreados</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTEXT BANNER -->
+  <section class="reportes-context-banner card border-0 mb-4 animate-on-scroll">
+    <div class="card-body p-4 d-flex align-items-center gap-3">
+      <div class="reportes-context-icon">
+        <span class="material-symbols-outlined">info</span>
+      </div>
+      <p class="mb-0 reportes-context-text">
+        <strong>42,000+ denuncias</strong> por ciberdelitos en Perú durante 2024 &mdash;
+        <strong>67%</strong> relacionadas con fraude informático.
+        Tu reporte ayuda a fortalecer la prevención en la región Junín.
+      </p>
+    </div>
+  </section>
+
+  <!-- TABS -->
+  <section class="reportes-tabs card border-0 animate-on-scroll">
+    <div class="card-header reportes-tabs-header border-0">
+      <button class="btn reportes-tab-btn" [class.active]="activeTab === 'nuevo'" (click)="setTab('nuevo')">
+        <span class="material-symbols-outlined me-1">add_circle</span>
+        Nuevo reporte
+      </button>
+      <button class="btn reportes-tab-btn" [class.active]="activeTab === 'historial'" (click)="setTab('historial')">
+        <span class="material-symbols-outlined me-1">list_alt</span>
+        Mis reportes
+      </button>
+    </div>
+
+    <!-- TAB: NUEVO REPORTE -->
+    <div class="card-body p-4 p-md-5 fade-in" *ngIf="activeTab === 'nuevo'">
+      <div class="mb-4">
+        <h2 class="reportes-section-title">Formulario de reporte</h2>
+        <p class="reportes-section-subtitle">Completa los campos con la mayor precisión posible.</p>
+      </div>
+
+      <form (ngSubmit)="onSubmitReport()" class="reportes-form">
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="reportes-field">
+              <label class="reportes-field-label form-label" for="tipoFraude">
+                <span class="material-symbols-outlined">warning</span>
+                Tipo de fraude <span class="text-danger">*</span>
+              </label>
+              <select
+                id="tipoFraude"
+                name="tipoFraude"
+                class="form-select reportes-select"
+                [(ngModel)]="tipoFraude"
+                [class.is-invalid]="formSubmitted && !tipoFraude"
+              >
+                <option value="" disabled>Selecciona una opción</option>
+                <option *ngFor="let tipo of tiposFraudeOptions" [value]="tipo">{{ tipo }}</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="formSubmitted && !tipoFraude">
+                <span class="material-symbols-outlined me-1">error</span>
+                Este campo es obligatorio.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="reportes-field">
+              <label class="reportes-field-label form-label" for="medio">
+                <span class="material-symbols-outlined">devices</span>
+                Medio utilizado
+              </label>
+              <select
+                id="medio"
+                name="medio"
+                class="form-select reportes-select"
+                [(ngModel)]="medio"
+              >
+                <option value="">Selecciona un medio</option>
+                <option *ngFor="let m of medioOptions" [value]="m">{{ m }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="reportes-field">
+          <label class="reportes-field-label form-label" for="descripcion">
+            <span class="material-symbols-outlined">description</span>
+            Descripción del incidente <span class="text-danger">*</span>
+          </label>
+          <textarea
+            id="descripcion"
+            name="descripcion"
+            class="form-control reportes-textarea"
+            rows="5"
+            [(ngModel)]="descripcion"
+            placeholder="Describe qué pasó, qué te dijeron y cómo te contactaron..."
+            [class.is-invalid]="formSubmitted && (!descripcion || descripcion.trim().length < 10)"
+          ></textarea>
+          <div class="invalid-feedback" *ngIf="formSubmitted && (!descripcion || descripcion.trim().length < 10)">
+            <span class="material-symbols-outlined me-1">error</span>
+            La descripción debe tener al menos 10 caracteres.
+          </div>
+        </div>
+
+        <div class="reportes-field">
+          <label class="reportes-field-label form-label">
+            <span class="material-symbols-outlined">account_balance</span>
+            ¿Sufriste pérdida económica?
+          </label>
+          <div class="d-flex gap-3 flex-wrap">
+            <label class="reportes-radio-pill" [class.active]="tienePerdida === true">
+              <input type="radio" name="tienePerdida" [value]="true" [(ngModel)]="tienePerdida" />
+              <span class="material-symbols-outlined">check_circle</span>
+              Sí
+            </label>
+            <label class="reportes-radio-pill" [class.active]="tienePerdida === false">
+              <input type="radio" name="tienePerdida" [value]="false" [(ngModel)]="tienePerdida" />
+              <span class="material-symbols-outlined">cancel</span>
+              No
+            </label>
+          </div>
+        </div>
+
+        <div class="reportes-field" *ngIf="tienePerdida">
+          <label class="reportes-field-label form-label" for="montoAfectado">
+            <span class="material-symbols-outlined">payments</span>
+            Monto perdido (S/)
+          </label>
+          <input
+            type="number"
+            id="montoAfectado"
+            name="montoAfectado"
+            class="form-control reportes-input"
+            [(ngModel)]="montoAfectado"
+            min="1"
+            placeholder="Ej. 500"
+            [class.is-invalid]="formSubmitted && tienePerdida && (montoAfectado === null || montoAfectado <= 0)"
+          />
+          <div class="invalid-feedback" *ngIf="formSubmitted && tienePerdida && (montoAfectado === null || montoAfectado <= 0)">
+            <span class="material-symbols-outlined me-1">error</span>
+            Ingresa un monto válido mayor a 0.
+          </div>
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="reportes-success alert d-flex align-items-start gap-3 mb-0" *ngIf="successMessage" role="alert">
+          <span class="material-symbols-outlined flex-shrink-0">check_circle</span>
+          <div>
+            <strong>¡Reporte enviado!</strong>
+            <p class="mb-0">{{ successMessage }}</p>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end pt-2">
+          <button type="submit" class="btn reportes-btn-primary btn-lg px-5" [disabled]="loading">
+            <span class="material-symbols-outlined me-2">{{ loading ? 'hourglass_top' : 'send' }}</span>
+            {{ loading ? 'Enviando...' : 'Enviar reporte' }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- TAB: HISTORIAL -->
+    <div class="card-body p-4 p-md-5 fade-in" *ngIf="activeTab === 'historial'">
+      <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4">
+        <div>
+          <h2 class="reportes-section-title">Historial de reportes</h2>
+          <p class="reportes-section-subtitle">Consulta tus reportes registrados y su estado actual.</p>
+        </div>
+        <div class="reportes-search-wrap">
+          <span class="material-symbols-outlined">search</span>
+          <input
+            type="text"
+            class="form-control reportes-search-input"
+            [(ngModel)]="searchTerm"
+            name="searchTerm"
+            placeholder="Buscar por tipo, medio o estado..."
+          />
+        </div>
+      </div>
+
+      <!-- EMPTY STATE -->
+      <div *ngIf="reportesFiltrados.length === 0" class="text-center py-5">
+        <div class="reportes-empty-icon">
+          <span class="material-symbols-outlined">inbox</span>
+        </div>
+        <h3 class="reportes-empty-title">No hay reportes para mostrar</h3>
+        <p class="reportes-empty-text">
+          Aún no tienes reportes registrados o no coinciden con tu búsqueda.
+        </p>
+        <button class="btn reportes-btn-primary btn-lg" (click)="setTab('nuevo')">
+          <span class="material-symbols-outlined me-2">add_circle</span>
+          Crear primer reporte
+        </button>
+      </div>
+
+      <!-- TABLE -->
+      <div class="table-responsive" *ngIf="reportesFiltrados.length > 0">
+        <table class="table reportes-table mb-0">
+          <thead>
+            <tr>
+              <th scope="col">Fecha</th>
+              <th scope="col">Tipo de fraude</th>
+              <th scope="col">Medio</th>
+              <th scope="col">Pérdida económica</th>
+              <th scope="col">Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let reporte of reportesFiltrados">
+              <td class="reportes-table-date">
+                <span class="material-symbols-outlined">calendar_today</span>
+                {{ formatDate(reporte.creado_en) }}
+              </td>
+              <td>
+                <strong>{{ reporte.tipo_fraude }}</strong>
+                <p class="reportes-table-desc">{{ reporte.descripcion }}</p>
+              </td>
+              <td>
+                <span *ngIf="reporte.medio; else noMedio" class="reportes-table-medio">{{ reporte.medio }}</span>
+                <ng-template #noMedio><span class="reportes-table-muted">&mdash;</span></ng-template>
+              </td>
+              <td>
+                <span *ngIf="reporte.monto_afectado !== null; else noPerdida" class="reportes-table-monto">
+                  <span class="material-symbols-outlined">payments</span>
+                  {{ formatMonto(reporte.monto_afectado) }}
+                </span>
+                <ng-template #noPerdida><span class="reportes-table-muted">No</span></ng-template>
+              </td>
+              <td>
+                <span [class]="getBadgeClass(reporte.estado)">
+                  <span class="material-symbols-outlined">{{ getBadgeIcon(reporte.estado) }}</span>
+                  {{ formatEstado(reporte.estado) }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</main>

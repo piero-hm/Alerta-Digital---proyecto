@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg fixed-top custom-navbar">
+  <div class="container-fluid custom-navbar-container">
+    <!-- Far Left: Brand Logo -->
+    <a class="navbar-brand d-flex align-items-center custom-brand" routerLink="/dashboard">
+      <span class="material-symbols-outlined custom-shield-icon">shield_lock</span>
+      <div class="d-flex flex-column lh-1">
+        <span class="custom-brand-top">CIBERSEGURO</span>
+        <span class="custom-brand-bottom">HUANCAYO</span>
+      </div>
+    </a>
+
+    <!-- Mobile Toggler -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible Content -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Center: Navigation Links -->
+      <ul class="navbar-nav custom-nav-links mx-auto">
+        <li class="nav-item">
+          <a class="nav-link custom-nav-link" routerLink="/dashboard" routerLinkActive="active-link">INICIO</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link custom-nav-link" routerLink="/educacion" routerLinkActive="active-link">EDUCACIÓN</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link custom-nav-link" routerLink="/quiz" routerLinkActive="active-link">QUIZ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link custom-nav-link" routerLink="/reportes" routerLinkActive="active-link">REPORTE COMUNITARIO</a>
+        </li>
+      </ul>
+
+      <!-- Far Right: User Profile & Logout -->
+      <div class="d-flex align-items-center custom-user-section ms-auto">
+        <div class="d-flex align-items-center custom-user-info">
+          <span class="material-symbols-outlined custom-user-icon">account_circle</span>
+          <span class="custom-user-name">{{ usuario()?.nombre || 'Usuario' }}</span>
+          <span class="custom-online-indicator"></span>
+        </div>
+        <button class="btn custom-logout-btn" (click)="onLogout()">
+          <span class="material-symbols-outlined custom-logout-icon">logout</span>
+          <span class="custom-logout-text">SALIR</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
