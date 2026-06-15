@@ -1,0 +1,256 @@
+<div class="modulo-detalle-page-wrapper">
+  <app-navbar></app-navbar>
+
+  <main class="container-fluid modulo-detalle-main-content">
+    <!-- Botón de retorno -->
+    <div class="modulo-detalle-back-wrap">
+      <button class="modulo-detalle-back-button" (click)="goBack()" aria-label="Volver a los Módulos">
+        <span class="material-symbols-outlined">arrow_back</span>
+        <span>Volver a los Módulos</span>
+      </button>
+    </div>
+
+    @if (modulo) {
+      <!-- ============================================================
+           HERO / HEADER
+           ============================================================ -->
+      <section class="modulo-detalle-hero">
+        <div class="modulo-detalle-hero-bg"></div>
+        <div class="modulo-detalle-hero-content">
+          <div class="modulo-detalle-hero-badge">
+            <span class="material-symbols-outlined">terminal</span>
+            MÓDULO {{ modulo.id | number:'2.0' }}
+          </div>
+          <div class="modulo-detalle-hero-icon-row">
+            <div class="modulo-detalle-hero-icon-wrap">
+              <span class="material-symbols-outlined modulo-detalle-hero-icon">{{ modulo.icono }}</span>
+            </div>
+          </div>
+          <h1 class="modulo-detalle-hero-title">{{ modulo.titulo }}</h1>
+          <p class="modulo-detalle-hero-intro">{{ modulo.introduccion }}</p>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           OBJETIVOS DE APRENDIZAJE
+           ============================================================ -->
+      @if (modulo.objetivos && modulo.objetivos.length > 0) {
+        <section class="modulo-detalle-section modulo-detalle-objetivos-section">
+          <div class="modulo-detalle-section-header">
+            <div class="modulo-detalle-section-header-icon-wrap section-header-icon-wrap-primary">
+              <span class="material-symbols-outlined fill-icon">psychology</span>
+            </div>
+            <h2 class="modulo-detalle-section-title">¿Qué va a aprender?</h2>
+          </div>
+          <div class="row g-3">
+            @for (objetivo of modulo.objetivos; track $index) {
+              <div class="col-12 col-md-6">
+                <div class="modulo-detalle-objetivo-item">
+                  <span class="material-symbols-outlined modulo-detalle-objetivo-icon">check_circle</span>
+                  <span>{{ objetivo }}</span>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+      }
+
+      <!-- ============================================================
+           SIMULACIÓN / SEÑALES DE PELIGRO
+           ============================================================ -->
+      @if (modulo.urlImagenSimulacion) {
+        <section class="modulo-detalle-section modulo-detalle-simulacion-section">
+          <div class="modulo-detalle-section-header">
+            <div class="modulo-detalle-section-header-icon-wrap section-header-icon-wrap-warning">
+              <span class="material-symbols-outlined fill-icon">visibility</span>
+            </div>
+            <h2 class="modulo-detalle-section-title">Identifique las señales de peligro</h2>
+          </div>
+          <p class="modulo-detalle-section-desc">Observe la imagen a continuación. ¿Puede identificar qué está mal? Cada detalle sospechoso es una pista que los estafadores dejan sin querer.</p>
+          <div class="modulo-detalle-image-card">
+            <img [src]="modulo.urlImagenSimulacion" alt="Simulación de estafa de {{ modulo.titulo }}" class="modulo-detalle-simulacion-image">
+            <div class="modulo-detalle-image-caption">
+              <span class="material-symbols-outlined">search</span>
+              <span>Observe con atención: ¿nota algo sospechoso?</span>
+            </div>
+          </div>
+        </section>
+      }
+
+      <!-- ============================================================
+           CÓMO DETECTARLO
+           ============================================================ -->
+      <section class="modulo-detalle-section modulo-detalle-detect-section">
+        <div class="modulo-detalle-section-header">
+          <div class="modulo-detalle-section-header-icon-wrap section-header-icon-wrap-error">
+            <span class="material-symbols-outlined fill-icon">policy</span>
+          </div>
+          <h2 class="modulo-detalle-section-title">Señales de alerta: Cómo detectarlo</h2>
+        </div>
+        <p class="modulo-detalle-section-desc">Estas son las señales más comunes que indican que está frente a un intento de estafa. Apréndalas bien y compártalas con su familia.</p>
+        <div class="row g-4">
+          @for (senal of modulo.comoDetectarlo; track $index) {
+            <div class="col-12 col-md-6">
+              <div class="modulo-detalle-alert-card">
+                <div class="modulo-detalle-alert-card-header">
+                  <div class="modulo-detalle-alert-icon-wrap">
+                    <span class="material-symbols-outlined modulo-detalle-alert-icon">{{ senal.icono }}</span>
+                  </div>
+                  <span class="modulo-detalle-alert-number">0{{ $index + 1 }}</span>
+                </div>
+                <h3 class="modulo-detalle-alert-title">{{ senal.titulo }}</h3>
+                <p class="modulo-detalle-alert-desc">{{ senal.descripcion }}</p>
+                @if (senal.ejemplo) {
+                  <div class="modulo-detalle-alert-ejemplo">
+                    <span class="material-symbols-outlined modulo-detalle-alert-ejemplo-icon">info</span>
+                    <span>{{ senal.ejemplo }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+
+      <!-- ============================================================
+           DATOS CLAVE
+           ============================================================ -->
+      @if (modulo.datosClave && modulo.datosClave.length > 0) {
+        <section class="modulo-detalle-section modulo-detalle-datos-section">
+          <div class="modulo-detalle-section-header">
+            <div class="modulo-detalle-section-header-icon-wrap section-header-icon-wrap-info">
+              <span class="material-symbols-outlined fill-icon">bar_chart</span>
+            </div>
+            <h2 class="modulo-detalle-section-title">Datos que debe conocer</h2>
+          </div>
+          <p class="modulo-detalle-section-desc">Estos datos le ayudarán a entender la magnitud del problema y por qué es importante protegerse.</p>
+          <div class="row g-3">
+            @for (dato of modulo.datosClave; track $index) {
+              <div class="col-12 col-md-4">
+                <div class="modulo-detalle-dato-card">
+                  <span class="material-symbols-outlined modulo-detalle-dato-icon">shield</span>
+                  <p class="modulo-detalle-dato-text">{{ dato }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+      }
+
+      <!-- ============================================================
+           CÓMO PREVENIRLOS (REGLAS DE ORO)
+           ============================================================ -->
+      <section class="modulo-detalle-section modulo-detalle-rules-section">
+        <div class="modulo-detalle-rules-bg-glow"></div>
+        <div class="modulo-detalle-section-header">
+          <div class="modulo-detalle-section-header-icon-wrap section-header-icon-wrap-primary">
+            <span class="material-symbols-outlined fill-icon">verified_user</span>
+          </div>
+          <h2 class="modulo-detalle-section-title">Reglas de oro: Cómo prevenirlos</h2>
+        </div>
+        <p class="modulo-detalle-section-desc">Estas reglas son su mejor defensa. Memorícelas y aplíquelas siempre. Compártalas con sus seres queridos para que ellos también estén protegidos.</p>
+
+        @if (modulo.urlImagenPrevencion) {
+          <div class="modulo-detalle-image-card modulo-detalle-image-card-prevencion">
+            <img [src]="modulo.urlImagenPrevencion" alt="Imagen de prevención para {{ modulo.titulo }}" class="modulo-detalle-prevencion-image">
+          </div>
+        }
+
+        <div class="modulo-detalle-rules-grid">
+          @for (regla of modulo.reglasDeOro; track $index) {
+            <div class="modulo-detalle-rule-card">
+              <div class="modulo-detalle-rule-number">0{{ $index + 1 }}</div>
+              <div class="modulo-detalle-rule-content">
+                <span class="material-symbols-outlined modulo-detalle-rule-icon">{{ regla.icono }}</span>
+                <p class="modulo-detalle-rule-text">{{ regla.texto }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+
+      <!-- ============================================================
+           RECURSOS ADICIONALES
+           ============================================================ -->
+      @if (modulo.recursosAdicionales && modulo.recursosAdicionales.length > 0) {
+        <section class="modulo-detalle-section">
+          <div class="modulo-detalle-section-header">
+            <div class="modulo-detalle-section-header-icon-wrap section-header-icon-wrap-secondary">
+              <span class="material-symbols-outlined fill-icon">folder_open</span>
+            </div>
+            <h2 class="modulo-detalle-section-title">Recursos para seguir aprendiendo</h2>
+          </div>
+          <p class="modulo-detalle-section-desc">Descargue guías, vea videos y revise infografías para reforzar lo aprendido.</p>
+          <div class="row g-3">
+            @for (recurso of modulo.recursosAdicionales; track $index) {
+              <div class="col-12 col-md-6 col-lg-4">
+                <a [href]="recurso.url" target="_blank" class="modulo-detalle-resource-card">
+                  <div class="modulo-detalle-resource-icon-wrap">
+                    <span class="material-symbols-outlined modulo-detalle-resource-icon">{{ recurso.icono }}</span>
+                  </div>
+                  <div class="modulo-detalle-resource-body">
+                    <h3 class="modulo-detalle-resource-name">{{ recurso.nombre }}</h3>
+                    <p class="modulo-detalle-resource-detail">{{ recurso.detalle }}</p>
+                  </div>
+                  <span class="material-symbols-outlined modulo-detalle-resource-action">open_in_new</span>
+                </a>
+              </div>
+            }
+          </div>
+        </section>
+      }
+
+      <!-- ============================================================
+           TESTIMONIOS
+           ============================================================ -->
+      @if (modulo.testimonios && modulo.testimonios.length > 0) {
+        <section class="modulo-detalle-section modulo-detalle-testimonials-section">
+          <div class="modulo-detalle-section-header">
+            <div class="modulo-detalle-section-header-icon-wrap section-header-icon-wrap-primary">
+              <span class="material-symbols-outlined fill-icon">forum</span>
+            </div>
+            <h2 class="modulo-detalle-section-title">Experiencias de la comunidad</h2>
+          </div>
+          <p class="modulo-detalle-section-desc">Personas como usted ya han enfrentado estas situaciones. Sus experiencias nos enseñan a estar alerta.</p>
+          <div class="row g-4">
+            @for (testimonio of modulo.testimonios; track $index) {
+              <div class="col-12 col-md-6">
+                <div class="modulo-detalle-testimonial-card">
+                  <div class="modulo-detalle-testimonial-quote">"</div>
+                  <p class="modulo-detalle-testimonial-text">{{ testimonio.texto }}</p>
+                  <div class="modulo-detalle-testimonial-author">
+                    <div class="modulo-detalle-testimonial-avatar">{{ testimonio.autor.charAt(0) }}</div>
+                    <span>{{ testimonio.autor }}</span>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+      }
+
+      <!-- ============================================================
+           CTA FINAL
+           ============================================================ -->
+      <section class="modulo-detalle-cta-section">
+        <div class="modulo-detalle-cta-glow"></div>
+        <div class="modulo-detalle-cta-content">
+          <h2 class="modulo-detalle-cta-title">¿Listo para poner a prueba lo que aprendió?</h2>
+          <p class="modulo-detalle-cta-text">Responda nuestro simulador interactivo y demuestre que sabe identificar las estafas. Aprender haciendo es la mejor manera de recordarlo.</p>
+          <button class="modulo-detalle-cta-button" routerLink="/quiz" aria-label="Practicar en el Simulador">
+            <span class="material-symbols-outlined">quiz</span>
+            Ir al Quiz
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </button>
+        </div>
+      </section>
+
+    } @else {
+      <div class="alert alert-warning text-center" role="alert">
+        Módulo no encontrado.
+      </div>
+    }
+  </main>
+
+  <app-footer></app-footer>
+</div>

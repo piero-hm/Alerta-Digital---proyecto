@@ -1,0 +1,323 @@
+<app-navbar></app-navbar>
+
+<div class="quiz-bg-mesh"></div>
+<div class="quiz-grid-lines"></div>
+
+<main class="quiz-main-content">
+
+  <!-- LOADING -->
+  <section class="quiz-section animate-on-scroll" *ngIf="cargando">
+    <div class="quiz-loading">
+      <div class="quiz-loading-spinner"></div>
+      <p class="quiz-loading-text">Cargando preguntas...</p>
+    </div>
+  </section>
+
+  <!-- ERROR -->
+  <section class="quiz-section animate-on-scroll" *ngIf="error">
+    <div class="quiz-error-card">
+      <span class="material-symbols-outlined quiz-error-icon">error</span>
+      <h2 class="quiz-error-title">Algo sali&oacute; mal</h2>
+      <p class="quiz-error-text">{{ error }}</p>
+      <button class="quiz-btn quiz-btn--primary" (click)="reiniciar()">
+        <span class="material-symbols-outlined">refresh</span>
+        Reintentar
+      </button>
+    </div>
+  </section>
+
+  <!-- HERO -->
+  <section class="quiz-hero animate-on-scroll" *ngIf="!cargando && !error && !quizTerminado && !preguntaEnCurso">
+    <div class="quiz-hero-decoration">
+      <div class="quiz-hero-orb quiz-hero-orb--1"></div>
+      <div class="quiz-hero-orb quiz-hero-orb--2"></div>
+    </div>
+    <div class="quiz-hero-content">
+      <div class="quiz-hero-text">
+        <div class="quiz-hero-greeting">
+          <span class="quiz-hero-greeting-dot"></span>
+          <span>Pon a prueba tus conocimientos</span>
+        </div>
+        <h1 class="quiz-hero-title">Quiz Interactivo</h1>
+        <p class="quiz-hero-subtitle">
+          Responde preguntas sobre situaciones reales de fraude digital y descubre qu&eacute; tan preparado est&aacute;s para protegerte.
+        </p>
+        <div class="quiz-hero-badges">
+          <div class="quiz-badge quiz-badge--info">
+            <span class="material-symbols-outlined">quiz</span>
+            {{ preguntas.length }} preguntas
+          </div>
+          <div class="quiz-badge quiz-badge--success">
+            <span class="material-symbols-outlined">fact_check</span>
+            Casos reales
+          </div>
+          <div class="quiz-badge quiz-badge--accent">
+            <span class="material-symbols-outlined">psychology</span>
+            Aprendizaje interactivo
+          </div>
+        </div>
+      </div>
+      <div class="quiz-hero-stats">
+        <div class="quiz-hero-stats-card">
+          <div class="quiz-hero-stats-header">
+            <span class="material-symbols-outlined">info</span>
+            <span>Informaci&oacute;n del Quiz</span>
+          </div>
+          <div class="quiz-hero-stats-body">
+            <div class="quiz-hero-stat-row">
+              <span class="quiz-hero-stat-label">Preguntas totales</span>
+              <span class="quiz-hero-stat-value">{{ preguntas.length }}</span>
+            </div>
+            <div class="quiz-hero-stat-row">
+              <span class="quiz-hero-stat-label">Modalidad</span>
+              <span class="quiz-hero-stat-value">Educativa</span>
+            </div>
+            <div class="quiz-hero-stat-row">
+              <span class="quiz-hero-stat-label">Dificultad</span>
+              <span class="quiz-hero-stat-value">B&aacute;sico / Intermedio</span>
+            </div>
+            <div class="quiz-hero-stat-row">
+              <span class="quiz-hero-stat-label">Tiempo estimado</span>
+              <span class="quiz-hero-stat-value">{{ preguntas.length }} min</span>
+            </div>
+          </div>
+          <div class="quiz-hero-stats-footer">
+            <span class="quiz-hero-stats-pulse"></span>
+            Respuestas al instante
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ PANEL -->
+  <section class="quiz-section fade-in" *ngIf="!quizTerminado && preguntaEnCurso && !cargando">
+    <!-- Progress Header -->
+    <div class="quiz-progress-header">
+      <div class="quiz-progress-info">
+        <span class="quiz-progress-label">Progreso</span>
+        <span class="quiz-progress-count">{{ preguntaActual + 1 }} / {{ preguntas.length }}</span>
+      </div>
+      <div class="quiz-progress-bar">
+        <div
+          class="quiz-progress-fill"
+          [style.width.%]="porcentajeProgreso"
+        ></div>
+      </div>
+      <div class="quiz-progress-pct">{{ porcentajeProgreso | number:'1.0-0' }}%</div>
+    </div>
+
+    <!-- Step Indicators -->
+    <div class="quiz-step-indicators">
+      <button
+        *ngFor="let _ of preguntas; let i = index"
+        class="quiz-step-dot"
+        [ngClass]="{
+          'quiz-step-dot--done': !respondida && i < preguntaActual,
+          'quiz-step-dot--correct': i < preguntaActual && historialRespuestas[i],
+          'quiz-step-dot--wrong': i < preguntaActual && !historialRespuestas[i],
+          'quiz-step-dot--current': i === preguntaActual,
+          'quiz-step-dot--pending': i > preguntaActual
+        }"
+        [disabled]="true"
+      >
+        <span *ngIf="i < preguntaActual && historialRespuestas[i]" class="material-symbols-outlined">check</span>
+        <span *ngIf="i < preguntaActual && !historialRespuestas[i]" class="material-symbols-outlined">close</span>
+        <span *ngIf="i === preguntaActual">{{ i + 1 }}</span>
+      </button>
+    </div>
+
+    <!-- Question Card -->
+    <div class="quiz-question-card" *ngIf="preguntaEnCurso as p">
+      <!-- Category Badge & Score -->
+      <div class="quiz-question-top">
+        <div
+          class="quiz-category-badge"
+          [style.background]="getInfoCategoria(p.categoria).bg"
+          [style.color]="getInfoCategoria(p.categoria).color"
+          [style.border-color]="getInfoCategoria(p.categoria).border"
+        >
+          <span class="material-symbols-outlined">{{ getInfoCategoria(p.categoria).icon }}</span>
+          {{ p.tipo }}
+        </div>
+        <div class="quiz-score-mini">
+          <span class="material-symbols-outlined">star</span>
+          {{ puntaje }} pts
+        </div>
+      </div>
+
+      <!-- Question Content -->
+      <div class="quiz-question-content">
+        <div class="quiz-question-label">
+          <span class="material-symbols-outlined">psychology</span>
+          Situaci&oacute;n {{ preguntaActual + 1 }}
+        </div>
+        <h2 class="quiz-question-title">{{ p.situacion }}</h2>
+
+        <!-- Simulated Message Bubble -->
+        <div *ngIf="p.mensaje_simulado" class="quiz-message-bubble">
+          <div class="quiz-message-bubble-avatar">
+            <span class="material-symbols-outlined">smartphone</span>
+          </div>
+          <div class="quiz-message-bubble-content">
+            <div class="quiz-message-bubble-sender">Mensaje recibido</div>
+            <p>{{ p.mensaje_simulado }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Options -->
+      <div class="quiz-options">
+        <button
+          *ngFor="let opcion of p.opciones; let i = index"
+          class="quiz-option-btn"
+          [ngClass]="{
+            'quiz-option-btn--correct': respondida && i === p.respuesta_correcta,
+            'quiz-option-btn--wrong': respondida && opcionElegida === i && i !== p.respuesta_correcta,
+            'quiz-option-btn--dimmed': respondida && opcionElegida !== i && i !== p.respuesta_correcta,
+            'quiz-option-btn--selected': opcionElegida === i
+          }"
+          (click)="responder(i)"
+          [disabled]="respondida"
+        >
+          <span
+            class="quiz-option-letter"
+            [ngClass]="{
+              'quiz-option-letter--correct': respondida && i === p.respuesta_correcta,
+              'quiz-option-letter--wrong': respondida && opcionElegida === i && i !== p.respuesta_correcta
+            }"
+          >{{ getLetra(i) }}</span>
+          <span class="quiz-option-text">{{ opcion }}</span>
+          <span *ngIf="respondida && i === p.respuesta_correcta" class="quiz-option-icon">
+            <span class="material-symbols-outlined">check_circle</span>
+          </span>
+          <span *ngIf="respondida && opcionElegida === i && i !== p.respuesta_correcta" class="quiz-option-icon quiz-option-icon--wrong">
+            <span class="material-symbols-outlined">cancel</span>
+          </span>
+        </button>
+      </div>
+
+      <!-- Feedback -->
+      <div
+        *ngIf="respondida && ultimaRespuesta"
+        class="quiz-feedback"
+        [ngClass]="{
+          'quiz-feedback--correct': ultimaRespuesta.es_correcta,
+          'quiz-feedback--wrong': !ultimaRespuesta.es_correcta
+        }"
+      >
+        <div class="quiz-feedback-header">
+          <span class="quiz-feedback-icon material-symbols-outlined">
+            {{ ultimaRespuesta.es_correcta ? 'check_circle' : 'error' }}
+          </span>
+          <div>
+            <strong>{{ ultimaRespuesta.es_correcta ? '¡Respuesta correcta!' : 'Respuesta incorrecta' }}</strong>
+            <span *ngIf="!ultimaRespuesta.es_correcta" class="quiz-feedback-correct-answer">
+              La respuesta correcta era: <em>{{ p.opciones[ultimaRespuesta.respuesta_correcta] }}</em>
+            </span>
+          </div>
+          <span *ngIf="ultimaRespuesta.es_correcta" class="quiz-feedback-points">+1 punto</span>
+        </div>
+        <div class="quiz-feedback-explanation">
+          <div class="quiz-feedback-explanation-icon">
+            <span class="material-symbols-outlined">lightbulb</span>
+          </div>
+          <p>{{ ultimaRespuesta.explicacion }}</p>
+        </div>
+        <div *ngIf="ultimaRespuesta.consejo" class="quiz-feedback-tip">
+          <span class="material-symbols-outlined">tip</span>
+          <span>{{ ultimaRespuesta.consejo }}</span>
+        </div>
+      </div>
+
+      <!-- Next Button -->
+      <div *ngIf="respondida" class="quiz-next-wrapper">
+        <button class="quiz-next-btn" (click)="siguiente()">
+          <span>{{ preguntaActual < preguntas.length - 1 ? 'Siguiente pregunta' : 'Ver resultados' }}</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS SCREEN -->
+  <section class="quiz-section fade-in" *ngIf="quizTerminado && !cargando">
+    <div class="quiz-results">
+      <div class="quiz-results-header">
+        <span class="quiz-results-badge">Quiz completado</span>
+        <h2 class="quiz-results-title">{{ getMensajeFinal().titulo }}</h2>
+        <p class="quiz-results-subtitle">{{ getMensajeFinal().mensaje }}</p>
+      </div>
+
+      <!-- Loading while saving -->
+      <div class="quiz-results-saving" *ngIf="enviandoResultado">
+        <div class="quiz-loading-spinner"></div>
+        <p>Guardando tu resultado...</p>
+      </div>
+
+      <!-- Score Circle -->
+      <div class="quiz-results-score" *ngIf="!enviandoResultado">
+        <div class="quiz-results-circle">
+          <svg class="quiz-results-svg" viewBox="0 0 120 120">
+            <circle class="quiz-results-svg-bg" cx="60" cy="60" r="54" />
+            <circle
+              class="quiz-results-svg-fill"
+              cx="60" cy="60" r="54"
+              [style.stroke-dashoffset]="339.292 - (339.292 * (puntaje / preguntas.length))"
+              [style.stroke]="getNivelSeguridad().color"
+            />
+          </svg>
+          <div class="quiz-results-circle-inner">
+            <span class="quiz-results-circle-score">{{ puntaje }}</span>
+            <span class="quiz-results-circle-total">/ {{ preguntas.length }}</span>
+          </div>
+        </div>
+        <div class="quiz-results-stats">
+          <div class="quiz-results-stat">
+            <span class="quiz-results-stat-value" [style.color]="getNivelSeguridad().color">{{ getNivelSeguridad().pct | number:'1.0-0' }}%</span>
+            <span class="quiz-results-stat-label">Aciertos</span>
+          </div>
+          <div class="quiz-results-stat">
+            <span class="quiz-results-stat-value">{{ getNivelSeguridad().label }}</span>
+            <span class="quiz-results-stat-label">Nivel</span>
+          </div>
+          <div class="quiz-results-stat">
+            <span class="quiz-results-stat-value">{{ preguntas.length - puntaje }}</span>
+            <span class="quiz-results-stat-label">Fallos</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Circles -->
+      <div class="quiz-results-breakdown" *ngIf="!enviandoResultado">
+        <span class="quiz-results-breakdown-title">Desglose de respuestas</span>
+        <div class="quiz-results-dots">
+          <div
+            *ngFor="let resp of historialRespuestas; let i = index"
+            class="quiz-results-dot"
+            [ngClass]="{ 'quiz-results-dot--correct': resp, 'quiz-results-dot--wrong': !resp }"
+            [title]="(resp ? 'Correcta' : 'Incorrecta') + ' - Pregunta ' + (i + 1)"
+          >
+            <span class="material-symbols-outlined">{{ resp ? 'check' : 'close' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="quiz-results-emoji" *ngIf="!enviandoResultado">{{ getMensajeFinal().emoji }}</div>
+
+      <div class="quiz-results-actions" *ngIf="!enviandoResultado">
+        <button class="quiz-btn quiz-btn--outline" (click)="reiniciar()">
+          <span class="material-symbols-outlined">replay</span>
+          Intentar de nuevo
+        </button>
+        <a class="quiz-btn quiz-btn--primary" routerLink="/educacion">
+          <span class="material-symbols-outlined">school</span>
+          Ir a Educaci&oacute;n Digital
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<app-footer></app-footer>

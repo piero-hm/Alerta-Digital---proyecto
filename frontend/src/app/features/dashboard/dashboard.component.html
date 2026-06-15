@@ -1,0 +1,398 @@
+<app-navbar></app-navbar>
+
+<div class="dashboard-bg-mesh"></div>
+<div class="dashboard-grid-lines"></div>
+
+<main class="dashboard-main-content">
+
+  <!-- HERO SECTION -->
+  <section class="dashboard-hero animate-on-scroll">
+    <div class="dashboard-hero-decoration">
+      <div class="dashboard-hero-glow-orb dashboard-hero-glow-orb--1"></div>
+      <div class="dashboard-hero-glow-orb dashboard-hero-glow-orb--2"></div>
+      <div class="dashboard-hero-glow-orb dashboard-hero-glow-orb--3"></div>
+    </div>
+    <div class="dashboard-hero-content">
+      <div class="dashboard-hero-text">
+        <div class="dashboard-hero-greeting">
+          <span class="dashboard-hero-greeting-dot"></span>
+          <span>Bienvenido de nuevo</span>
+        </div>
+        <h1 class="dashboard-hero-title">{{ userName }}</h1>
+        <p class="dashboard-hero-subtitle">
+          Plataforma de protección digital para adultos mayores &mdash; Región Junín.
+          Tu escudo contra las amenazas cibernéticas.
+        </p>
+        <div class="dashboard-hero-badges">
+          <div class="dashboard-badge dashboard-badge--success">
+            <span class="material-symbols-outlined">verified</span>
+            Sistema Seguro
+          </div>
+          <div class="dashboard-badge dashboard-badge--info">
+            <span class="material-symbols-outlined">security</span>
+            Sesión Activa
+          </div>
+          <div class="dashboard-badge dashboard-badge--accent">
+            <span class="material-symbols-outlined">location_on</span>
+            Junín, Perú
+          </div>
+          <div class="dashboard-badge dashboard-badge--green" *ngIf="totalIntentosQuiz > 0">
+            <span class="material-symbols-outlined">school</span>
+            {{ ultimoNivel }}
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-hero-stats">
+        <div class="dashboard-hero-stats-card">
+          <div class="dashboard-hero-stats-header">
+            <span class="material-symbols-outlined">monitoring</span>
+            <span>Resumen de actividad</span>
+          </div>
+          <div class="dashboard-hero-stats-body">
+            <div class="dashboard-hero-stat-item" *ngIf="statsLoading">
+              <span class="dashboard-hero-stat-label">Cargando datos...</span>
+              <span class="dashboard-hero-stat-value">—</span>
+            </div>
+            <ng-container *ngIf="!statsLoading">
+              <div class="dashboard-hero-stat-item">
+                <span class="dashboard-hero-stat-label">Reportes realizados</span>
+                <span class="dashboard-hero-stat-value">{{ totalReportes }}</span>
+              </div>
+              <div class="dashboard-hero-stat-item">
+                <span class="dashboard-hero-stat-label">Intentos de quiz</span>
+                <span class="dashboard-hero-stat-value">{{ totalIntentosQuiz }}</span>
+              </div>
+              <div class="dashboard-hero-stat-item">
+                <span class="dashboard-hero-stat-label">Promedio general</span>
+                <span class="dashboard-hero-stat-value">{{ promedioQuiz }}%</span>
+              </div>
+              <div class="dashboard-hero-stat-item">
+                <span class="dashboard-hero-stat-label">Mejor puntaje</span>
+                <span class="dashboard-hero-stat-value">{{ mejorPuntaje }}%</span>
+              </div>
+              <div class="dashboard-hero-stat-item">
+                <span class="dashboard-hero-stat-label">Último nivel</span>
+                <span class="dashboard-hero-stat-value">{{ ultimoNivel }}</span>
+              </div>
+            </ng-container>
+          </div>
+          <div class="dashboard-hero-stats-footer">
+            <span class="dashboard-hero-stats-pulse"></span>
+            Sistema activo
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK STATS ROW -->
+  <section class="dashboard-quick-stats animate-on-scroll">
+    <div class="dashboard-quick-stat-card">
+      <div class="dashboard-quick-stat-icon" style="--stat-color: #ffa73c">
+        <span class="material-symbols-outlined">warning</span>
+      </div>
+      <div class="dashboard-quick-stat-info">
+        <span class="dashboard-quick-stat-value">42,000+</span>
+        <span class="dashboard-quick-stat-label">Denuncias por ciberdelitos en Perú (2024)</span>
+      </div>
+    </div>
+    <div class="dashboard-quick-stat-card">
+      <div class="dashboard-quick-stat-icon" style="--stat-color: #72e6ff">
+        <span class="material-symbols-outlined">group</span>
+      </div>
+      <div class="dashboard-quick-stat-info">
+        <span class="dashboard-quick-stat-value">65,247</span>
+        <span class="dashboard-quick-stat-label">Adultos mayores en la provincia de Huancayo</span>
+      </div>
+    </div>
+    <div class="dashboard-quick-stat-card">
+      <div class="dashboard-quick-stat-icon" style="--stat-color: #ffb86b">
+        <span class="material-symbols-outlined">pie_chart</span>
+      </div>
+      <div class="dashboard-quick-stat-info">
+        <span class="dashboard-quick-stat-value">67%</span>
+        <span class="dashboard-quick-stat-label">De ciberdelitos corresponden a fraude informático</span>
+      </div>
+    </div>
+    <div class="dashboard-quick-stat-card">
+      <div class="dashboard-quick-stat-icon" style="--stat-color: #4fdbcc">
+        <span class="material-symbols-outlined">shield</span>
+      </div>
+      <div class="dashboard-quick-stat-info">
+        <span class="dashboard-quick-stat-value">{{ totalIntentosQuiz }}</span>
+        <span class="dashboard-quick-stat-label">Capacitaciones realizadas en la plataforma</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MONITOREO DE AMENAZAS + CONSEJOS SIDE BY SIDE -->
+  <section class="dashboard-section animate-on-scroll">
+    <div class="dashboard-section-header">
+      <div class="dashboard-section-header-left">
+        <h2 class="dashboard-section-title">
+          <span class="material-symbols-outlined">monitoring</span>
+          Monitoreo de Amenazas
+        </h2>
+        <p class="dashboard-section-subtitle">
+          Visualización de incidentes reportados en la región Junín.
+        </p>
+      </div>
+      <div class="dashboard-section-header-right">
+        <span class="dashboard-live-indicator">
+          <span class="dashboard-live-indicator-dot"></span>
+          En vivo
+        </span>
+      </div>
+    </div>
+
+    <div class="dashboard-metrics-grid">
+      <div class="dashboard-metric-card dashboard-metric-card--chart">
+        <div class="dashboard-metric-card-header">
+          <span class="material-symbols-outlined">show_chart</span>
+          Incidentes de ciberdelincuencia en la región
+        </div>
+        <div class="dashboard-chart-container">
+          <img
+            alt="Gráfico de incidentes de ciberdelincuencia"
+            class="dashboard-chart-image"
+            [src]="chartImageUrl"
+          />
+          <div class="dashboard-chart-overlay"></div>
+        </div>
+      </div>
+
+      <div class="dashboard-metric-card dashboard-metric-card--methods">
+        <div class="dashboard-metric-card-header">
+          <span class="material-symbols-outlined">donut_small</span>
+          Métodos de ataque más comunes
+        </div>
+        <div class="dashboard-methods-list">
+          <div class="dashboard-method-item">
+            <div class="dashboard-method-info">
+              <span class="dashboard-method-name">Phishing</span>
+              <span class="dashboard-method-pct">45%</span>
+            </div>
+            <div class="dashboard-method-bar">
+              <div class="dashboard-method-bar-fill" style="width: 45%; background: #72e6ff; box-shadow: 0 0 12px rgba(114, 230, 255, 0.5);"></div>
+            </div>
+          </div>
+          <div class="dashboard-method-item">
+            <div class="dashboard-method-info">
+              <span class="dashboard-method-name">Vishing</span>
+              <span class="dashboard-method-pct">30%</span>
+            </div>
+            <div class="dashboard-method-bar">
+              <div class="dashboard-method-bar-fill" style="width: 30%; background: #4fdbcc; box-shadow: 0 0 12px rgba(79, 219, 204, 0.5);"></div>
+            </div>
+          </div>
+          <div class="dashboard-method-item">
+            <div class="dashboard-method-info">
+              <span class="dashboard-method-name">Smishing</span>
+              <span class="dashboard-method-pct">25%</span>
+            </div>
+            <div class="dashboard-method-bar">
+              <div class="dashboard-method-bar-fill" style="width: 25%; background: #ffb86b; box-shadow: 0 0 12px rgba(255, 184, 107, 0.5);"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-metrics-footer">
+          <span class="material-symbols-outlined">info</span>
+          <span>Fuente: Ministerio Público &mdash; Fiscalía de Ciberdelincuencia</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRESO DE APRENDIZAJE -->
+  <section class="dashboard-section animate-on-scroll" *ngIf="!statsLoading">
+    <div class="dashboard-section-header">
+      <div class="dashboard-section-header-left">
+        <h2 class="dashboard-section-title">
+          <span class="material-symbols-outlined">trending_up</span>
+          Progreso de Aprendizaje
+        </h2>
+        <p class="dashboard-section-subtitle">
+          Tu evolución en los módulos de capacitación en ciberseguridad.
+        </p>
+      </div>
+    </div>
+
+    <div class="dashboard-progress-grid">
+      <div class="dashboard-progress-card">
+        <div class="dashboard-progress-card-header">
+          <span class="material-symbols-outlined">psychology</span>
+          Nivel alcanzado
+        </div>
+        <div class="dashboard-progress-card-body">
+          <div class="dashboard-progress-level" [class]="'dashboard-progress-level--' + nivelClase">
+            <span class="material-symbols-outlined">{{ nivelIcono }}</span>
+            <span class="dashboard-progress-level-text">{{ ultimoNivel }}</span>
+          </div>
+          <p class="dashboard-progress-desc">
+            {{ ultimoNivel === '—' ? 'Completa tu primer quiz para obtener un nivel' : 'Sigue practicando para subir al siguiente nivel' }}
+          </p>
+        </div>
+      </div>
+
+      <div class="dashboard-progress-card">
+        <div class="dashboard-progress-card-header">
+          <span class="material-symbols-outlined">stars</span>
+          Mejor puntaje
+        </div>
+        <div class="dashboard-progress-card-body">
+          <div class="dashboard-progress-score">
+            <span class="dashboard-progress-score-value">{{ mejorPuntaje }}%</span>
+          </div>
+          <div class="dashboard-progress-bar-wrapper">
+            <div class="dashboard-progress-bar">
+              <div class="dashboard-progress-bar-fill" [style.width.%]="mejorPuntaje" style="background: linear-gradient(90deg, #4fdbcc, #72e6ff); box-shadow: 0 0 16px rgba(114, 230, 255, 0.4);"></div>
+            </div>
+          </div>
+          <p class="dashboard-progress-desc">Puntaje más alto obtenido en los quizzes</p>
+        </div>
+      </div>
+
+      <div class="dashboard-progress-card">
+        <div class="dashboard-progress-card-header">
+          <span class="material-symbols-outlined">assignment_turned_in</span>
+          Quizzes completados
+        </div>
+        <div class="dashboard-progress-card-body">
+          <div class="dashboard-progress-score">
+            <span class="dashboard-progress-score-value">{{ totalIntentosQuiz }}</span>
+          </div>
+          <div class="dashboard-progress-bar-wrapper">
+            <div class="dashboard-progress-bar">
+              <div class="dashboard-progress-bar-fill" [style.width.%]="totalIntentosQuiz > 0 ? 100 : 0" style="background: linear-gradient(90deg, #ffa73c, #ffb86b); box-shadow: 0 0 16px rgba(255, 167, 60, 0.3);"></div>
+            </div>
+          </div>
+          <p class="dashboard-progress-desc">Intentos de quiz realizados en la plataforma</p>
+        </div>
+      </div>
+
+      <div class="dashboard-progress-card">
+        <div class="dashboard-progress-card-header">
+          <span class="material-symbols-outlined">summarize</span>
+          Reportes activos
+        </div>
+        <div class="dashboard-progress-card-body">
+          <div class="dashboard-progress-stats-row">
+            <div class="dashboard-progress-stat-item">
+              <span class="dashboard-progress-stat-value">{{ reportesPendientes }}</span>
+              <span class="dashboard-progress-stat-label">Pendientes</span>
+            </div>
+            <div class="dashboard-progress-stat-item">
+              <span class="dashboard-progress-stat-value">{{ reportesRevisados }}</span>
+              <span class="dashboard-progress-stat-label">En revisión</span>
+            </div>
+            <div class="dashboard-progress-stat-item">
+              <span class="dashboard-progress-stat-value">{{ reportesResueltos }}</span>
+              <span class="dashboard-progress-stat-label">Atendidos</span>
+            </div>
+          </div>
+          <p class="dashboard-progress-desc">Estado actual de tus reportes de incidentes</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONSEJOS DE SEGURIDAD -->
+  <section class="dashboard-section animate-on-scroll">
+    <div class="dashboard-section-header">
+      <div class="dashboard-section-header-left">
+        <h2 class="dashboard-section-title">
+          <span class="material-symbols-outlined">lightbulb</span>
+          Consejos de Seguridad
+        </h2>
+        <p class="dashboard-section-subtitle">
+          Recomendaciones prácticas para protegerte contra el fraude digital.
+        </p>
+      </div>
+    </div>
+
+    <div class="dashboard-tips-card" [style.--tip-color]="currentTip.color">
+      <div class="dashboard-tips-decoration"></div>
+      <div class="dashboard-tips-content">
+        <div class="dashboard-tips-icon-wrapper">
+          <div class="dashboard-tips-icon">
+            <span class="material-symbols-outlined">{{ currentTip.icon }}</span>
+          </div>
+        </div>
+        <div class="dashboard-tips-text">
+          <h3 class="dashboard-tips-title">{{ currentTip.title }}</h3>
+          <p class="dashboard-tips-description">{{ currentTip.text }}</p>
+          <div class="dashboard-tips-dots">
+            <button
+              *ngFor="let tip of safetyTips; let i = index"
+              class="dashboard-tips-dot"
+              [class.active]="i === currentTipIndex"
+              [style.--dot-color]="tip.color"
+              (click)="goToTip(i)"
+              attr.aria-label="Consejo {{ i + 1 }}"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÓDULOS DE PROTECCIÓN -->
+  <section class="dashboard-section animate-on-scroll">
+    <div class="dashboard-section-header">
+      <div class="dashboard-section-header-left">
+        <h2 class="dashboard-section-title">
+          <span class="material-symbols-outlined">library_books</span>
+          Módulos de Protección
+        </h2>
+        <p class="dashboard-section-subtitle">
+          Selecciona un módulo para comenzar tu entrenamiento en ciberseguridad.
+        </p>
+      </div>
+      <a class="dashboard-section-cta" routerLink="/educacion">
+        Explorar todos
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </a>
+    </div>
+
+    <div class="dashboard-modules-grid">
+      <a
+        *ngFor="let mod of modules; let i = index"
+        class="dashboard-module-card"
+        [routerLink]="mod.routerLink"
+        [style.--module-color]="mod.color"
+        [style.--module-glow]="mod.borderGlow"
+      >
+        <div class="dashboard-module-card-glow"></div>
+        <div class="dashboard-module-card-bg-pattern"></div>
+        <div class="dashboard-module-card-top">
+          <div
+            class="dashboard-module-icon-circle"
+            [style.background]="'radial-gradient(circle at 30% 30%, ' + mod.color + '22, ' + mod.color + '08)'"
+            [style.border-color]="mod.color + '33'"
+          >
+            <span
+              class="material-symbols-outlined"
+              [style.color]="mod.color"
+            >{{ mod.icon }}</span>
+          </div>
+          <div class="dashboard-module-badge">
+            <span class="material-symbols-outlined">lock</span>
+            Módulo {{ i + 1 }}
+          </div>
+        </div>
+        <h3 class="dashboard-module-title">{{ mod.title }}</h3>
+        <p class="dashboard-module-description">{{ mod.description }}</p>
+        <div class="dashboard-module-footer">
+          <span class="dashboard-module-link">
+            Comenzar ahora
+            <span class="material-symbols-outlined">east</span>
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<app-footer></app-footer>

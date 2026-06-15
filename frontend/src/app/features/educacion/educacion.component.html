@@ -1,0 +1,89 @@
+<div class="educacion-page-wrapper">
+  <app-navbar></app-navbar>
+
+  <main class="container-fluid educacion-main-content">
+    <!-- Hero Section -->
+    <section class="educacion-hero">
+      <div class="educacion-hero-badge">
+        <span class="material-symbols-outlined">school</span>
+        <span>Centro de Aprendizaje</span>
+      </div>
+      <h1 class="educacion-hero-title">Entrenamiento Digital<br><span class="educacion-hero-highlight">Prevenido</span></h1>
+      <p class="educacion-hero-subtitle">
+        Conozca las tácticas más comunes que utilizan los ciberdelincuentes para engañar a personas como usted.
+        Cada módulo incluye ejemplos reales, señales de alerta y reglas prácticas para mantenerse seguro.
+      </p>
+      <div class="educacion-hero-stats">
+        <div class="educacion-hero-stat">
+          <span class="educacion-hero-stat-number">4</span>
+          <span class="educacion-hero-stat-label">Módulos Interactivos</span>
+        </div>
+        <div class="educacion-hero-stat">
+          <span class="educacion-hero-stat-number">16</span>
+          <span class="educacion-hero-stat-label">Señales de Alerta</span>
+        </div>
+        <div class="educacion-hero-stat">
+          <span class="educacion-hero-stat-number">16</span>
+          <span class="educacion-hero-stat-label">Reglas de Protección</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección educativa -->
+    <section class="educacion-intro-card">
+      <div class="educacion-intro-card-glow"></div>
+      <span class="material-symbols-outlined educacion-intro-card-icon">lightbulb</span>
+      <div>
+        <h2 class="educacion-intro-card-title">¿Por qué es importante aprender sobre estas estafas?</h2>
+        <p class="educacion-intro-card-text">
+          Cada día, cientos de personas en el Perú pierden sus ahorros por no conocer las tácticas de los estafadores.
+          Estos módulos están diseñados especialmente para adultos mayores, con explicaciones claras, ejemplos prácticos
+          y un lenguaje sencillo. Tómese su tiempo, no hay prisa. Su seguridad digital es lo más importante.
+        </p>
+      </div>
+    </section>
+
+    <!-- Module Cards Grid -->
+    <section class="educacion-modules-section">
+      <h2 class="educacion-modules-section-title">Seleccione un módulo para comenzar</h2>
+      <div class="row g-4">
+        @for (modulo of modulos; track modulo.id) {
+          <div class="col-12 col-lg-6 educacion-module-col">
+            <button
+              class="educacion-module-card"
+              (click)="verDetalleModulo(modulo.id)"
+              aria-label="Ver detalle del módulo {{ modulo.titulo }}"
+            >
+              <div class="educacion-module-card-bg-glow"></div>
+              <div class="educacion-module-card-header">
+                <div class="educacion-module-badge">
+                  <span class="material-symbols-outlined">terminal</span>
+                  MÓDULO {{ modulo.id | number:'2.0' }}
+                </div>
+                <div class="educacion-module-icon-wrapper">
+                  <span class="material-symbols-outlined educacion-module-icon">{{ modulo.icono }}</span>
+                </div>
+              </div>
+              <div class="educacion-module-card-body">
+                <h3 class="educacion-module-title">{{ modulo.titulo }}</h3>
+                <p class="educacion-module-description">{{ modulo.descripcionCorta }}</p>
+              </div>
+              <div class="educacion-module-card-footer">
+                <div class="educacion-module-meta">
+                  <span class="material-symbols-outlined">visibility</span>
+                  {{ modulo.comoDetectarlo.length }} señales de alerta
+                </div>
+                <div class="educacion-module-view-more">
+                  <span>COMENZAR MÓDULO</span>
+                  <span class="material-symbols-outlined">arrow_forward</span>
+                </div>
+              </div>
+            </button>
+          </div>
+        }
+      </div>
+    </section>
+  </main>
+
+  <app-footer></app-footer>
+</div>
