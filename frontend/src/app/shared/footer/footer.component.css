@@ -1,61 +1,61 @@
 .custom-footer {
+  position: relative;
+  overflow: hidden;
+  color: #dbe1ff; /* text-on-background */
   background-color: #0a122a; /* bg-surface-container-lowest */
   border-top: 1px solid rgba(61, 73, 76, 0.5); /* border-t border-outline-variant/50 */
   padding-top: 80px; /* pt-xl */
   padding-bottom: 48px; /* pb-lg */
   margin-top: 80px; /* mt-xl */
-  position: relative;
-  overflow: hidden;
-  color: #dbe1ff; /* text-on-background */
 }
 
 .custom-footer-container {
+  position: relative;
+  z-index: 10;
   max-width: 1200px; /* max-w-7xl */
   margin-left: auto;
   margin-right: auto;
   padding-left: 24px; /* px-container-padding */
   padding-right: 24px; /* px-container-padding */
-  position: relative;
-  z-index: 10;
 }
 
 .custom-footer-brand {
-  gap: 4px; /* gap-xs */
   font-family: "Hanken Grotesk", sans-serif; /* font-headline-md */
   font-size: 28px; /* text-headline-md */
   font-weight: 700; /* font-bold */
-  color: #dbe1ff; /* text-on-surface */
   letter-spacing: -0.02em; /* tracking-tight */
+  color: #dbe1ff; /* text-on-surface */
+  gap: 4px; /* gap-xs */
 }
 
 .custom-footer-shield-icon {
-  font-size: 32px;
   color: #72e6ff; /* text-primary */
+  font-size: 32px;
   filter: drop-shadow(0 0 8px rgba(114, 230, 255, 0.5));
 }
 
 .custom-footer-text {
+  line-height: 1.6;
   font-family: "Atkinson Hyperlegible Next", sans-serif; /* font-body-md */
   font-size: 18px; /* text-body-md */
-  line-height: 1.6;
   color: #bcc9cc; /* text-on-surface-variant */
 }
 
 .custom-social-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #212942; /* bg-surface-container-high */
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   color: #bcc9cc; /* text-on-surface-variant */
+  background-color: #212942; /* bg-surface-container-high */
   transition: all 0.3s ease;
 }
 
 .custom-social-icon:hover {
-  color: #72e6ff; /* hover:text-primary */
   background-color: #2c344d; /* hover:bg-surface-container-highest */
+  color: #72e6ff; /* hover:text-primary */
 }
 
 .custom-social-icon .material-symbols-outlined {
@@ -63,10 +63,10 @@
 }
 
 .custom-footer-heading {
+  font-weight: 700; /* font-bold */
   font-family: "JetBrains Mono", monospace; /* font-label-mono */
   font-size: 16px; /* text-label-mono */
   color: #72e6ff; /* text-primary */
-  font-weight: 700; /* font-bold */
 }
 
 .custom-footer-nav {
@@ -74,17 +74,17 @@
 }
 
 .custom-footer-link {
-  color: #bcc9cc; /* text-on-surface-variant */
-  text-decoration: none;
-  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   gap: 4px; /* gap-xs */
+  text-decoration: none;
+  color: #bcc9cc; /* text-on-surface-variant */
+  transition: all 0.2s ease;
 }
 
 .custom-footer-link:hover {
-  color: #72e6ff; /* hover:text-primary */
   transform: translateX(4px); /* hover:translate-x-1 */
+  color: #72e6ff; /* hover:text-primary */
 }
 
 .custom-footer-link .material-symbols-outlined {
@@ -92,13 +92,13 @@
 }
 
 .custom-footer-contact {
-  font-family: "Atkinson Hyperlegible Next", sans-serif; /* font-body-md */
   color: #bcc9cc; /* text-on-surface-variant */
+  font-family: "Atkinson Hyperlegible Next", sans-serif; /* font-body-md */
 }
 
 .custom-footer-contact-icon {
-  font-size: 20px;
   color: #72e6ff; /* text-primary */
+  font-size: 20px;
 }
 
 .custom-footer-divider {
@@ -106,21 +106,21 @@
 }
 
 .custom-footer-bottom {
+  border-top: 1px solid rgba(61, 73, 76, 0.3); /* border-t border-outline-variant/30 */
   margin-top: 80px; /* mt-xl */
   padding-top: 48px; /* pt-lg */
-  border-top: 1px solid rgba(61, 73, 76, 0.3); /* border-t border-outline-variant/30 */
 }
 
 .custom-footer-text-small {
+  color: #bcc9cc; /* text-on-surface-variant */
   font-family: "Atkinson Hyperlegible Next", sans-serif; /* font-body-md */
   font-size: 14px;
-  color: #bcc9cc; /* text-on-surface-variant */
 }
 
 .custom-footer-nav-bottom {
+  color: #bcc9cc; /* text-on-surface-variant */
   font-family: "JetBrains Mono", monospace; /* font-label-mono */
   font-size: 12px;
-  color: #bcc9cc; /* text-on-surface-variant */
 }
 
 .custom-footer-link-small {
