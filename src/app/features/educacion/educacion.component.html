@@ -1,0 +1,39 @@
+<div class="educacion-page-wrapper">
+  <app-navbar></app-navbar>
+
+  <main class="container-fluid educacion-main-content">
+    <!-- Header Section -->
+    <section class="d-flex flex-column gap-4 mb-5">
+      <h1 class="educacion-header-title">Centro de Entrenamiento Digital Prevenido</h1>
+      <p class="educacion-header-subtitle">Conozca las tácticas más comunes utilizadas por ciberdelincuentes. Aprenda a identificar señales de alerta y protéjase con nuestras reglas de oro.</p>
+    </section>
+
+    <!-- Module Cards Grid -->
+    <section class="row g-4 mb-5">
+      @for (modulo of modulos; track modulo.id) {
+        <div class="col-12 col-lg-6">
+          <button
+            class="educacion-module-card d-flex flex-column justify-content-between"
+            (click)="verDetalleModulo(modulo.id)"
+            aria-label="Ver detalle del módulo {{ modulo.titulo }}"
+          >
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div class="educacion-module-badge d-flex align-items-center">
+                <span class="material-symbols-outlined me-2">terminal</span> MÓDULO {{ modulo.id | number:'2.0' }}
+              </div>
+              <span class="material-symbols-outlined educacion-module-icon">{{ modulo.icono }}</span>
+            </div>
+            <h2 class="educacion-module-title mb-2">{{ modulo.titulo }}</h2>
+            <p class="educacion-module-description mb-4">{{ modulo.descripcionCorta }}</p>
+            <div class="educacion-module-view-more d-flex align-items-center mt-auto">
+              <span>VER MÓDULO</span>
+              <span class="material-symbols-outlined ms-2">arrow_forward</span>
+            </div>
+          </button>
+        </div>
+      }
+    </section>
+  </main>
+
+  <app-footer></app-footer>
+</div>
